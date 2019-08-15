@@ -20,8 +20,18 @@
   "author": "GitHub",
   "license": "CC0-1.0",
   "devDependencies": {
-    "electron": "^2.0.2",
+    "@types/react": "^16.8.24",
+    "@types/react-dom": "^16.8.5",
+    "electron": "^6.0.2",
+    "electron-rebuild": "^1.8.5",
     "tslint": "^5.10.0",
-    "typescript": "^2.8.3"
+    "typescript": "^3.5.3"
+  },
+  "dependencies": {
+    "chch": "^0.6.5",
+    "react": "^16.8.6",
+    "react-dom": "^16.9.0",
+    "react-use": "^10.5.0",
+    "sharp": "^0.23.0"
   }
 }
