@@ -1,38 +1,39 @@
 {
-  "name": "electron-quick-start-typescript",
-  "version": "1.0.0",
-  "description": "A minimal Electron application written with Typescript",
-  "scripts": {
-    "build": "tsc",
-    "watch": "tsc -w",
-    "lint": "tslint -c tslint.json -p tsconfig.json",
-    "start": "npm run build && electron ./dist/main.js"
-  },
-  "repository": "https://github.com/electron/electron-quick-start-typescript",
-  "keywords": [
-    "Electron",
-    "quick",
-    "start",
-    "tutorial",
-    "demo",
-    "typescript"
-  ],
-  "author": "GitHub",
-  "license": "CC0-1.0",
-  "devDependencies": {
-    "@types/react": "^16.8.24",
-    "@types/react-dom": "^16.8.5",
-    "electron": "^6.0.2",
-    "electron-rebuild": "^1.8.5",
-    "tslint": "^5.10.0",
-    "typescript": "^3.5.3"
-  },
-  "dependencies": {
-    "@material-ui/core": "^4.3.2",
-    "chch": "^0.6.5",
-    "react": "^16.8.6",
-    "react-dom": "^16.9.0",
-    "react-use": "^10.5.0",
-    "sharp": "^0.23.0"
-  }
+	"name": "electron-quick-start-typescript",
+	"version": "1.0.0",
+	"description": "A minimal Electron application written with Typescript",
+	"scripts": {
+		"build": "tsc",
+		"watch": "tsc -w",
+		"lint": "tslint -c tslint.json -p tsconfig.json",
+		"start": "npm run build && electron ./dist/main.js"
+	},
+	"repository": "https://github.com/electron/electron-quick-start-typescript",
+	"keywords": [
+		"Electron",
+		"quick",
+		"start",
+		"tutorial",
+		"demo",
+		"typescript"
+	],
+	"author": "GitHub",
+	"license": "CC0-1.0",
+	"devDependencies": {
+		"@types/react": "^16.8.24",
+		"@types/react-dom": "^16.8.5",
+		"electron": "^6.0.2",
+		"electron-rebuild": "^1.8.5",
+		"tslint": "^5.10.0",
+		"typescript": "3.5.1"
+	},
+	"dependencies": {
+		"@material-ui/core": "^4.3.2",
+		"chch": "^0.6.5",
+		"dayjs": "^1.8.15",
+		"react": "^16.8.6",
+		"react-dom": "^16.9.0",
+		"react-use": "^10.5.0",
+		"sharp": "^0.23.0"
+	}
 }

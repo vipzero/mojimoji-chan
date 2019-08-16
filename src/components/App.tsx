@@ -1,11 +1,11 @@
 import React from 'react'
 import useLocalStorage from 'react-use/lib/useLocalStorage'
-import chch from 'chch'
+import watch from 'chch/dist/watch'
 import { Post } from 'chch/dist/dump'
 import { Button } from '@material-ui/core'
 import { Typography } from '@material-ui/core'
 import { TextField } from '@material-ui/core'
-import { AppBar } from '@material-ui/core'
+import PostTable from './PostTable'
 
 function App() {
 	const [watchId, setWatchId] = React.useState<NodeJS.Timeout | null>(null)
@@ -27,9 +27,8 @@ function App() {
 					size="large"
 					onClick={async () => {
 						setPosts([])
-						const id = await chch.watch(url, true, post => {
-							posts.push(post)
-							setPosts([...posts, post])
+						const id = await watch(url, true, post => {
+							setPosts(s => [...s, post])
 						})
 						setWatchId(id)
 					}}
@@ -55,6 +54,7 @@ function App() {
 				(対応確認済み: VIP,パー速VIP) (収集時間: 1分おき) (読み上げ省略:
 				40文字以降)
 			</Typography>
+			<PostTable posts={posts} />
 		</div>
 	)
 }
