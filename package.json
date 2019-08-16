@@ -1,14 +1,14 @@
 {
-	"name": "electron-quick-start-typescript",
+	"name": "v-yomi-chan",
 	"version": "1.0.0",
-	"description": "A minimal Electron application written with Typescript",
+	"description": "5ch読み上げデスクトップアプリ",
 	"scripts": {
 		"build": "tsc",
 		"watch": "tsc -w",
 		"lint": "tslint -c tslint.json -p tsconfig.json",
 		"start": "npm run build && electron ./dist/main.js"
 	},
-	"repository": "https://github.com/electron/electron-quick-start-typescript",
+	"repository": "https://github.com/vipzero/v-yomi-chan",
 	"keywords": [
 		"Electron",
 		"quick",
@@ -17,8 +17,8 @@
 		"demo",
 		"typescript"
 	],
-	"author": "GitHub",
-	"license": "CC0-1.0",
+	"author": "vip0",
+	"license": "MIT",
 	"devDependencies": {
 		"@types/react": "^16.8.24",
 		"@types/react-dom": "^16.8.5",
@@ -33,7 +33,6 @@
 		"dayjs": "^1.8.15",
 		"react": "^16.8.6",
 		"react-dom": "^16.9.0",
-		"react-use": "^10.5.0",
-		"sharp": "^0.23.0"
+		"react-use": "^10.5.0"
 	}
 }
