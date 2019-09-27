@@ -1,0 +1,10 @@
+{
+  "extends": [
+    "@elzup/eslint-config",
+    "@elzup/eslint-config/typescript",
+    "@elzup/eslint-config/react"
+  ],
+  "parserOptions": {
+    "project": null
+  }
+}

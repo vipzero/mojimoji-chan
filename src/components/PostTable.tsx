@@ -1,5 +1,5 @@
 import React from 'react'
-import { Post } from 'chch/dist/dump'
+import { Post } from 'chch/dist/types/index'
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
 import Table from '@material-ui/core/Table'
 import TableBody from '@material-ui/core/TableBody'
@@ -7,7 +7,6 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
-import 'dayjs/locale/ja' // load on demand
 import dayjs from 'dayjs'
 import useLocalStorage from 'react-use/lib/useLocalStorage'
 import { FormControlLabel, Checkbox, FormGroup } from '@material-ui/core'
@@ -79,23 +78,19 @@ function PostTable({ posts }: Props) {
 				</TableBody>
 			</Table>
 			<FormGroup row style={{ marginLeft: '12px' }}>
-				{Object.keys(visible)
-					.map(v => [v, visible[v]])
-					.map(([key, b]) => (
-						<FormControlLabel
-							key={key}
-							control={
-								<Checkbox
-									checked={b}
-									onChange={(e, newb) =>
-										setVisible({ ...visible, [key]: newb })
-									}
-									value={key}
-								/>
-							}
-							label={key}
-						/>
-					))}
+				{_.map(visible, (b, key) => (
+					<FormControlLabel
+						key={key}
+						control={
+							<Checkbox
+								checked={b}
+								onChange={(e, newb) => setVisible({ ...visible, [key]: newb })}
+								value={key}
+							/>
+						}
+						label={key}
+					/>
+				))}
 			</FormGroup>
 		</Paper>
 	)

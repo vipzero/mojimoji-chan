@@ -1,10 +1,8 @@
 import React from 'react'
 import useLocalStorage from 'react-use/lib/useLocalStorage'
 import watch from 'chch/dist/watch'
-import { Post } from 'chch/dist/dump'
-import { Button } from '@material-ui/core'
-import { Typography } from '@material-ui/core'
-import { TextField } from '@material-ui/core'
+import { Post } from 'chch/dist/types'
+import { Button, Typography, TextField } from '@material-ui/core'
 import PostTable from './PostTable'
 
 function App() {
@@ -27,8 +25,8 @@ function App() {
 					size="large"
 					onClick={async () => {
 						setPosts([])
-						const id = await watch(url, true, post => {
-							setPosts(s => [...s, post])
+						const id = await watch(url, (post, nth) => {
+							setPosts(s => [...s, ...post])
 						})
 						setWatchId(id)
 					}}
@@ -42,7 +40,9 @@ function App() {
 					color="primary"
 					size="large"
 					onClick={() => {
-						clearInterval(watchId)
+						if (watchId) {
+							clearInterval(watchId)
+						}
 						setWatchId(null)
 					}}
 				>

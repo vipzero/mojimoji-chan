@@ -1,20 +1,20 @@
-import { app, BrowserWindow } from 'electron'
 import * as path from 'path'
+import { app, BrowserWindow } from 'electron'
 
-let mainWindow: Electron.BrowserWindow
+let mainWindow: Electron.BrowserWindow | null
 
 function createWindow() {
 	// Create the browser window.
 	mainWindow = new BrowserWindow({
-		webPreferences: {
-			nodeIntegration: true,
-		},
 		height: 600,
+		webPreferences: {
+			// preload: path.join(__dirname, 'preload.js'),
+		},
 		width: 800,
 	})
 
 	// and load the index.html of the app.
-	mainWindow.loadFile(path.join(__dirname, '../index.html'))
+	mainWindow.loadFile('index.html')
 
 	// Open the DevTools.
 	mainWindow.webContents.openDevTools()

@@ -1,18 +1,16 @@
 {
   "compilerOptions": {
-    "module": "commonjs",
-    "noImplicitAny": false,
-    "sourceMap": true,
-    "esModuleInterop": true,
     "target": "es5",
-    "outDir": "dist",
-    "baseUrl": ".",
-    "paths": {
-      "*": ["node_modules/*"]
-    },
-    "jsx": "react"
+    "module": "commonjs",
+    "jsx": "react",
+    "outDir": "./build",
+    "strict": true,
+    "esModuleInterop": true,
+    "sourceRoot": "./tsx",
+    "inlineSourceMap": true,
+    "inlineSources": true
   },
   "include": [
-    "src/**/*"
+    "./src/**/*"
   ]
 }

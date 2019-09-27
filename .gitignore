@@ -1,2 +1,6 @@
 node_modules
-dist
+build
+
+VYomiChan-darwin-x64/
+VYomiChan-win32-x64/
+docs
