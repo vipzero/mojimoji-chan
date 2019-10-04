@@ -1,4 +1,3 @@
-import * as path from 'path'
 import { app, BrowserWindow } from 'electron'
 
 let mainWindow: Electron.BrowserWindow | null

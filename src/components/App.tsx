@@ -25,7 +25,7 @@ function App() {
 					size="large"
 					onClick={async () => {
 						setPosts([])
-						const id = await watch(url, (post, nth) => {
+						const id = await watch(url, post => {
 							setPosts(s => [...s, ...post])
 						})
 						setWatchId(id)

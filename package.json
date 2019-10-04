@@ -6,7 +6,7 @@
 	"scripts": {
 		"build": "webpack",
 		"watch": "tsc -w",
-		"lint": "eslint",
+		"lint": "eslint src/**/*{ts,tsx} --fix",
 		"start": "webpack -w",
 		"pack": "electron-builder --dir",
 		"dist": "electron-builder"
@@ -43,6 +43,7 @@
 		"electron-rebuild": "^1.8.6",
 		"electron-reload-webpack-plugin": "^2.0.4",
 		"eslint": "^6.4.0",
+		"eslint-config-google": "^0.14.0",
 		"spawn-sync": "^2.0.0",
 		"ts-loader": "^6.1.2",
 		"typescript": "3.6.3",
