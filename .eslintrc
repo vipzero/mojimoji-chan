@@ -1,10 +1,15 @@
 {
-  "extends": [
-    "@elzup/eslint-config",
-    "@elzup/eslint-config/typescript",
-    "@elzup/eslint-config/react"
-  ],
-  "parserOptions": {
-    "project": null
-  }
+	"extends": [
+		"google",
+		"@elzup/eslint-config",
+		"@elzup/eslint-config/typescript",
+		"@elzup/eslint-config/react"
+	],
+	"parserOptions": {
+		"project": null
+	},
+	"rules": {
+		"require-jsdoc": 0,
+		"no-unused-vars": 2
+	}
 }
