@@ -4,7 +4,7 @@ const path = require('path')
 const createElectronReloadWebpackPlugin = require('electron-reload-webpack-plugin')
 
 // プロジェクト直下のディレクトリを監視させる
-const ElectronReloadWebpackPlugin = createElectronReloadWebpackPlugin({
+const electronReloadWebpackPlugin = createElectronReloadWebpackPlugin({
 	path: './',
 })
 
@@ -32,7 +32,7 @@ const main = {
 		],
 	},
 	// プラグイン起動
-	plugins: [ElectronReloadWebpackPlugin()],
+	plugins: [electronReloadWebpackPlugin()],
 	devtool: 'inline-source-map',
 }
 
@@ -56,9 +56,16 @@ const app = {
 				exclude: /node_modules/,
 				use: 'ts-loader',
 			},
+			{
+				// iconv-lite で Uncaught TypeError: __webpack_require__
+				test: /node_modules[\/\\](iconv-lite)[\/\\].+/,
+				resolve: {
+					aliasFields: ['main'],
+				},
+			},
 		],
 	},
-	plugins: [ElectronReloadWebpackPlugin()],
+	plugins: [electronReloadWebpackPlugin()],
 	devtool: 'inline-source-map',
 }
 
