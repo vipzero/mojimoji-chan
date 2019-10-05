@@ -10,7 +10,7 @@
 		"pack": "electron-builder --dir",
 		"dist": "electron-builder"
 	},
-	"repository": "https://github.com/vipzero/mojimoji-chan",
+	"repository": "https://github.com/vipzero/MojimojiChan",
 	"keywords": [
 		"Electron",
 		"quick",
@@ -52,7 +52,7 @@
 		"webpack-cli": "^3.3.9"
 	},
 	"build": {
-		"productName": "mojimoji-chan",
+		"productName": "MojimojiChan",
 		"appId": "dev.vipper.mojimojichan",
 		"asar": true,
 		"npmRebuild": false,
