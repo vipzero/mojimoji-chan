@@ -1,5 +1,5 @@
 {
-	"name": "v-yomi-chan",
+	"name": "mojimoji-chan",
 	"version": "1.0.0",
 	"description": "5ch読み上げデスクトップアプリ",
 	"main": "build/main.js",
@@ -10,7 +10,7 @@
 		"pack": "electron-builder --dir",
 		"dist": "electron-builder"
 	},
-	"repository": "https://github.com/vipzero/v-yomi-chan",
+	"repository": "https://github.com/vipzero/mojimoji-chan",
 	"keywords": [
 		"Electron",
 		"quick",

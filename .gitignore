@@ -2,6 +2,4 @@ node_modules
 build
 dist
 
-VYomiChan-darwin-x64/
-VYomiChan-win32-x64/
 docs
