@@ -49,6 +49,7 @@ type Props = {
 function ColTable() {
 	// console.log(groupByUser(posts))
 	const classes = useStyles({})
+
 	return (
 		<Paper className={classes.root}>
 			<Table className={classes.table}>

@@ -38,6 +38,7 @@ function PostTable({ posts }: Props) {
 		id: true,
 	})
 	const classes = useStyles({})
+
 	return (
 		<Paper className={classes.root}>
 			<Table className={classes.table}>

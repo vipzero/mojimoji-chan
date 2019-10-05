@@ -1,10 +1,5 @@
 {
-	"extends": [
-		"google",
-		"@elzup/eslint-config",
-		"@elzup/eslint-config/typescript",
-		"@elzup/eslint-config/react"
-	],
+	"extends": ["nzap", "nzap/typescript", "nzap/react"],
 	"parserOptions": {
 		"project": null
 	},

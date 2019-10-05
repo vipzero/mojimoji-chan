@@ -10,6 +10,7 @@ function App() {
 	const [posts, setPosts] = React.useState<Post[]>([])
 	const isWatch = !!watchId
 	const [url, setUrl] = useLocalStorage<string>('url', '')
+
 	return (
 		<div>
 			<TextField
@@ -28,6 +29,7 @@ function App() {
 						const id = await watch(url, post => {
 							setPosts(s => [...s, ...post])
 						})
+
 						setWatchId(id)
 					}}
 				>
