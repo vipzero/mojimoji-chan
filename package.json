@@ -52,12 +52,20 @@
 		"webpack-cli": "^3.3.9"
 	},
 	"build": {
-		"appId": "dev.vipper.vyomichan",
-		"mac": {
-			"target": "dmg"
-		},
-		"directories": {
-			"output": "docs"
-		}
+		"productName": "mojimoji-chan",
+		"appId": "dev.vipper.mojimojichan",
+		"asar": true,
+		"npmRebuild": false,
+		"files": [
+			"index.html",
+			"build/**/*",
+			"node_modules/**/*"
+		],
+		"publish": [
+			{
+				"provider": "github",
+				"releaseType": "release"
+			}
+		]
 	}
 }
