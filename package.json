@@ -8,7 +8,7 @@
 		"build": "webpack",
 		"lint": "eslint src/**/*{ts,tsx} --fix",
 		"pack": "electron-builder --dir",
-		"dist": "electron-builder"
+		"dist": "yarn run build && electron-builder"
 	},
 	"repository": "https://github.com/vipzero/MojimojiChan",
 	"keywords": [

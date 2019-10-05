@@ -32,7 +32,6 @@ jobs:
           yarn install
       - name: Publish
         run: |
-          yarn run build
           yarn run dist
       - name: Cleanup artifacts
         run: |
