@@ -4,9 +4,9 @@
 	"description": "5ch読み上げデスクトップアプリ",
 	"main": "build/main.js",
 	"scripts": {
+		"start": "webpack --config webpack.config.development.js",
 		"build": "webpack",
 		"lint": "eslint src/**/*{ts,tsx} --fix",
-		"start": "webpack -w",
 		"pack": "electron-builder --dir",
 		"dist": "electron-builder"
 	},
@@ -52,12 +52,14 @@
 		"webpack-cli": "^3.3.9"
 	},
 	"build": {
-		"appId": "dev.vipper.vyomichan",
-		"mac": {
-			"target": "dmg"
-		},
-		"directories": {
-			"output": "docs"
-		}
+		"productName": "mojimoji-chan",
+		"appId": "dev.vipper.mojimojichan",
+		"asar": true,
+		"npmRebuild": false,
+		"files": [
+			"index.html",
+			"build/**/*",
+			"node_modules/**/*"
+		]
 	}
 }
