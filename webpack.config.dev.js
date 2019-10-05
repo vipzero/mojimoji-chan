@@ -1,5 +1,13 @@
 const path = require('path')
 
+// プラグインのインポート
+const createElectronReloadWebpackPlugin = require('electron-reload-webpack-plugin')
+
+// プロジェクト直下のディレクトリを監視させる
+const electronReloadWebpackPlugin = createElectronReloadWebpackPlugin({
+	path: './',
+})
+
 // メインプロセス
 /** 補完が効きます！ */
 /** @type import('webpack').Configuration */
@@ -24,7 +32,7 @@ const main = {
 		],
 	},
 	// プラグイン起動
-	plugins: [],
+	plugins: [electronReloadWebpackPlugin()],
 	devtool: 'inline-source-map',
 }
 
@@ -57,7 +65,7 @@ const app = {
 			},
 		],
 	},
-	plugins: [],
+	plugins: [electronReloadWebpackPlugin()],
 	devtool: 'inline-source-map',
 }
 

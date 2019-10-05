@@ -4,9 +4,9 @@
 	"description": "5ch読み上げデスクトップアプリ",
 	"main": "build/main.js",
 	"scripts": {
+		"start": "webpack --config webpack.config.development.js",
 		"build": "webpack",
 		"lint": "eslint src/**/*{ts,tsx} --fix",
-		"start": "webpack -w",
 		"pack": "electron-builder --dir",
 		"dist": "electron-builder"
 	},
@@ -60,12 +60,6 @@
 			"index.html",
 			"build/**/*",
 			"node_modules/**/*"
-		],
-		"publish": [
-			{
-				"provider": "github",
-				"releaseType": "release"
-			}
 		]
 	}
 }
