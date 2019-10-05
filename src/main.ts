@@ -1,3 +1,4 @@
+import { client } from 'electron-connect'
 import { app, BrowserWindow } from 'electron'
 
 let mainWindow: Electron.BrowserWindow | null
@@ -8,6 +9,7 @@ function createWindow() {
 		height: 600,
 		webPreferences: {
 			// preload: path.join(__dirname, 'preload.js'),
+			nodeIntegration: true,
 		},
 		width: 800,
 	})
@@ -17,6 +19,8 @@ function createWindow() {
 
 	// Open the DevTools.
 	mainWindow.webContents.openDevTools()
+
+	client.create(mainWindow)
 
 	// Emitted when the window is closed.
 	mainWindow.on('closed', () => {

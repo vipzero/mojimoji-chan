@@ -1,16 +1,19 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "jsx": "react",
-    "outDir": "./build",
-    "strict": true,
+    "baseUrl": ".",
+    "paths": {
+      "*": ["@types/*"]
+    },
+    "target": "es2015",
+    "module": "es2015",
+    "moduleResolution": "node",
     "esModuleInterop": true,
-    "sourceRoot": "./tsx",
-    "inlineSourceMap": true,
-    "inlineSources": true
-  },
-  "include": [
-    "./src/**/*"
-  ]
+    "lib": [
+      "dom",
+      "esnext"
+    ],
+    "sourceMap": true,
+    "strict": true,
+    "jsx": "react"
+  }
 }
