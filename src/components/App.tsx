@@ -4,6 +4,7 @@ import { Post } from 'chch/dist/types'
 import { Button, Typography, TextField } from '@material-ui/core'
 import { ipcRenderer } from 'electron'
 
+import { speak } from '../utils'
 import PostTable from './PostTable'
 
 function App() {
@@ -16,13 +17,19 @@ function App() {
 		ipcRenderer.on('posts', (event, posts: Post[], nth: number) => {
 			console.log(nth)
 			if (nth === 0) {
-				return
+				// 初期値は最後の5レスだけ読み取る
+				posts.splice(0, posts.length - 5)
 			}
+			posts.map(post => `${post.number}: ${post.message}`).forEach(speak)
 			setPosts(s => s.concat(posts))
 		})
 		ipcRenderer.on('watchstart', (event, id: NodeJS.Timeout) => {
 			setWatchId(id)
 		})
+		return () => {
+			ipcRenderer.removeAllListeners('posts')
+			ipcRenderer.removeAllListeners('watchstart')
+		}
 	}, [])
 
 	return (
