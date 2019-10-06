@@ -23,6 +23,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"@material-ui/core": "^4.5.0",
+		"@material-ui/icons": "^4.4.3",
 		"chch": "^1.2.0",
 		"dayjs": "^1.8.16",
 		"lodash": "^4.17.15",
