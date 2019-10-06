@@ -9,11 +9,13 @@ const electronReloadWebpackPlugin = createElectronReloadWebpackPlugin({
 /** @type import('webpack').Configuration */
 const main = {
 	...mainBase,
+	mode: 'development',
 	plugins: mainBase.plugins.concat([electronReloadWebpackPlugin()]),
 }
 
 const app = {
 	...appBase,
+	mode: 'development',
 	plugins: appBase.plugins.concat([electronReloadWebpackPlugin()]),
 }
 

@@ -4,7 +4,7 @@ const path = require('path')
 /** @type import('webpack').Configuration */
 const main = {
 	target: 'electron-main',
-	mode: 'development',
+	mode: 'production',
 	resolve: {
 		extensions: ['.js', '.ts'],
 	},
@@ -31,7 +31,7 @@ const main = {
 /** @type import('webpack').Configuration */
 const app = {
 	target: 'electron-renderer',
-	mode: 'development',
+	mode: 'production',
 	resolve: {
 		extensions: ['.js', '.ts', '.jsx', '.tsx'],
 	},

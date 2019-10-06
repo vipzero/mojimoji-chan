@@ -1,15 +1,6 @@
 import { client } from 'electron-connect'
 import { app, BrowserWindow, ipcMain } from 'electron'
 import watch from 'chch/dist/watch'
-import installExtension, {
-	REACT_DEVELOPER_TOOLS,
-} from 'electron-devtools-installer'
-
-if (process.env.NODE_ENV === 'development') {
-	installExtension(REACT_DEVELOPER_TOOLS)
-		.then((name: string) => console.log(`Added Extension:  ${name}`))
-		.catch((err: object) => console.log('An error occurred: ', err))
-}
 
 let mainWindow: Electron.BrowserWindow | null
 
