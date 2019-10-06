@@ -1,6 +1,6 @@
 {
 	"name": "mojimoji-chan",
-	"version": "1.0.1",
+	"version": "1.0.2",
 	"description": "5ch読み上げデスクトップアプリ",
 	"main": "build/main.js",
 	"scripts": {
