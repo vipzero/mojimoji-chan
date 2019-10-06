@@ -6,7 +6,7 @@
 	"scripts": {
 		"start": "webpack --config webpack.config.dev.js",
 		"build": "webpack",
-		"lint": "eslint src/**/*{ts,tsx} --fix",
+		"lint": "eslint src/**/*",
 		"pack": "electron-builder --dir",
 		"dist": "yarn run build && electron-builder"
 	},
@@ -23,7 +23,7 @@
 	"license": "MIT",
 	"dependencies": {
 		"@material-ui/core": "^4.5.0",
-		"chch": "^1.1.2",
+		"chch": "^1.2.0",
 		"dayjs": "^1.8.16",
 		"lodash": "^4.17.15",
 		"react": "^16.10.2",
@@ -43,6 +43,8 @@
 		"electron-reload-webpack-plugin": "^2.0.4",
 		"eslint": "^6.5.1",
 		"eslint-config-nzap": "^1.1.0",
+		"husky": "^3.0.8",
+		"lint-staged": "^9.4.1",
 		"spawn-sync": "^2.0.0",
 		"ts-loader": "^6.2.0",
 		"typescript": "3.6.3",
@@ -60,5 +62,20 @@
 			"build/**/*",
 			"node_modules/**/*"
 		]
+	},
+	"lint-staged": {
+		"src/**/*.{json,css,scss,md}": [
+			"prettier --write",
+			"git add"
+		],
+		"src/**/*.{js,jsx,ts,tsx}": [
+			"eslint --fix",
+			"git add"
+		]
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
 	}
 }

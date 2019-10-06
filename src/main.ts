@@ -1,5 +1,6 @@
 import { client } from 'electron-connect'
-import { app, BrowserWindow } from 'electron'
+import { app, BrowserWindow, ipcMain } from 'electron'
+import watch from 'chch/dist/watch'
 
 let mainWindow: Electron.BrowserWindow | null
 
@@ -10,6 +11,7 @@ function createWindow() {
 		webPreferences: {
 			// preload: path.join(__dirname, 'preload.js'),
 			nodeIntegration: true,
+			// webSecurity: false,
 		},
 		width: 800,
 	})
@@ -53,5 +55,16 @@ app.on('activate', () => {
 	}
 })
 
+ipcMain.on('watch', async (event, url) => {
+	const watchId = await watch(url, (posts, nth) => {
+		event.sender.send('posts', posts, nth)
+	})
+
+	event.sender.send('watchstart', watchId)
+})
+
+ipcMain.on('unwatch', async (event, watchId) => {
+	clearInterval(watchId)
+})
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.

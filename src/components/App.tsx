@@ -1,8 +1,9 @@
 import React from 'react'
 import useLocalStorage from 'react-use/lib/useLocalStorage'
-import watch from 'chch/dist/watch'
 import { Post } from 'chch/dist/types'
 import { Button, Typography, TextField } from '@material-ui/core'
+import { ipcRenderer } from 'electron'
+
 import PostTable from './PostTable'
 
 function App() {
@@ -25,12 +26,15 @@ function App() {
 					color="default"
 					size="large"
 					onClick={async () => {
-						setPosts([])
-						const id = await watch(url, post => {
-							setPosts(s => [...s, ...post])
+						ipcRenderer.send('watch', url)
+						ipcRenderer.on('posts', (event, posts: Post[], nth: number) => {
+							console.log(nth)
+							console.log(posts)
+							if (nth === 0) {
+								return
+							}
+							setPosts(s => s.concat(posts))
 						})
-
-						setWatchId(id)
 					}}
 				>
 					読み上げ開始
