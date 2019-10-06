@@ -1,7 +1,6 @@
 const path = require('path')
 
 // メインプロセス
-/** 補完が効きます！ */
 /** @type import('webpack').Configuration */
 const main = {
 	target: 'electron-main',
@@ -47,13 +46,6 @@ const app = {
 				test: /\.tsx?$/,
 				exclude: /node_modules/,
 				use: 'ts-loader',
-			},
-			{
-				// iconv-lite で Uncaught TypeError: __webpack_require__
-				test: /node_modules[\/\\](iconv-lite)[\/\\].+/,
-				resolve: {
-					aliasFields: ['main'],
-				},
 			},
 		],
 	},
