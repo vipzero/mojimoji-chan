@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import useLocalStorage from 'react-use/lib/useLocalStorage'
 import { Post } from 'chch/dist/types'
 import { Button, Typography, TextField } from '@material-ui/core'
@@ -12,6 +12,19 @@ function App() {
 	const isWatch = !!watchId
 	const [url, setUrl] = useLocalStorage<string>('url', '')
 
+	useEffect(() => {
+		ipcRenderer.on('posts', (event, posts: Post[], nth: number) => {
+			console.log(nth)
+			if (nth === 0) {
+				return
+			}
+			setPosts(s => s.concat(posts))
+		})
+		ipcRenderer.on('watchstart', (event, id: NodeJS.Timeout) => {
+			setWatchId(id)
+		})
+	}, [])
+
 	return (
 		<div>
 			<TextField
@@ -20,41 +33,22 @@ function App() {
 				fullWidth
 				onChange={v => setUrl(v.target.value)}
 			/>
-			{!isWatch && (
-				<Button
-					variant="outlined"
-					color="default"
-					size="large"
-					onClick={async () => {
-						ipcRenderer.send('watch', url)
-						ipcRenderer.on('posts', (event, posts: Post[], nth: number) => {
-							console.log(nth)
-							console.log(posts)
-							if (nth === 0) {
-								return
-							}
-							setPosts(s => s.concat(posts))
-						})
-					}}
-				>
-					読み上げ開始
-				</Button>
-			)}
-			{isWatch && (
-				<Button
-					variant="outlined"
-					color="primary"
-					size="large"
-					onClick={() => {
-						if (watchId) {
-							clearInterval(watchId)
-						}
+			<Button
+				variant="outlined"
+				color={isWatch ? 'primary' : 'default'}
+				size="large"
+				onClick={async () => {
+					if (watchId) {
+						ipcRenderer.send('unwatch', watchId)
 						setWatchId(null)
-					}}
-				>
-					終了
-				</Button>
-			)}
+					} else {
+						ipcRenderer.send('watch', url)
+						setPosts([])
+					}
+				}}
+			>
+				{isWatch ? '終了' : '読み上げ開始'}
+			</Button>
 			<br />
 			<Typography variant="caption">
 				(対応確認済み: VIP,パー速VIP) (収集時間: 1分おき) (読み上げ省略:
