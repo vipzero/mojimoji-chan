@@ -4,7 +4,7 @@
 	"description": "5ch読み上げデスクトップアプリ",
 	"main": "build/main.js",
 	"scripts": {
-		"start": "webpack --config webpack.config.dev.js --watch",
+		"start": "NODE_ENV=development webpack --config webpack.config.dev.js --watch",
 		"build": "webpack",
 		"lint": "eslint src/**/*",
 		"pack": "electron-builder --dir",
