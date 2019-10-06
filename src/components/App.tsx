@@ -4,7 +4,7 @@ import { Post } from 'chch/dist/types'
 import { Button, Typography, TextField } from '@material-ui/core'
 import { ipcRenderer } from 'electron'
 
-import { speak } from '../utils'
+import { speak, speakPatch } from '../utils'
 import PostTable from './PostTable'
 
 function App() {
@@ -14,23 +14,23 @@ function App() {
 	const [url, setUrl] = useLocalStorage<string>('url', '')
 
 	useEffect(() => {
+		console.log('effect')
+		ipcRenderer.removeAllListeners('posts')
 		ipcRenderer.on('posts', (event, posts: Post[], nth: number) => {
 			console.log(nth)
 			if (nth === 0) {
-				// 初期値は最後の5レスだけ読み取る
-				posts.splice(0, posts.length - 5)
+				// 初期値は最後の2レスだけ読み取る
+				posts.splice(0, posts.length - 2)
 			}
-			posts.map(post => `${post.number}: ${post.message}`).forEach(speak)
+
+			posts.map(p => speakPatch(p.message)).forEach(speak)
 			setPosts(s => s.concat(posts))
 		})
-		ipcRenderer.on('watchstart', (event, id: NodeJS.Timeout) => {
-			setWatchId(id)
-		})
 		return () => {
+			console.log('unmount')
 			ipcRenderer.removeAllListeners('posts')
-			ipcRenderer.removeAllListeners('watchstart')
 		}
-	}, [])
+	}, [watchId])
 
 	return (
 		<div>
@@ -46,9 +46,12 @@ function App() {
 				size="large"
 				onClick={async () => {
 					if (watchId) {
-						ipcRenderer.send('unwatch', watchId)
+						await ipcRenderer.send('unwatch', watchId)
 						setWatchId(null)
 					} else {
+						ipcRenderer.once('watchstart', (event, id: NodeJS.Timeout) => {
+							setWatchId(id)
+						})
 						ipcRenderer.send('watch', url)
 						setPosts([])
 					}

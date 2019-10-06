@@ -56,6 +56,7 @@ app.on('activate', () => {
 })
 
 ipcMain.on('watch', async (event, url) => {
+	console.log('main -- watch')
 	const watchId = await watch(url, (posts, nth) => {
 		event.sender.send('posts', posts, nth)
 	})
@@ -63,8 +64,11 @@ ipcMain.on('watch', async (event, url) => {
 	event.sender.send('watchstart', watchId)
 })
 
-ipcMain.on('unwatch', async (event, watchId) => {
-	clearInterval(watchId)
+ipcMain.on('unwatch', async () => {
+	console.log('main -- unwatch')
+	for (let i = 0; i < 10; i++) {
+		clearInterval(i)
+	}
 })
 // In this file you can include the rest of your app"s specific main process
 // code. You can also put them in separate files and require them here.

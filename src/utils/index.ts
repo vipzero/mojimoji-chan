@@ -4,3 +4,7 @@ export function speak(text: string) {
 	uttr.lang = 'ja-JP'
 	speechSynthesis.speak(uttr)
 }
+
+export function speakPatch(text: string) {
+	return text.substr(0, 30).replace(/>>/, '')
+}

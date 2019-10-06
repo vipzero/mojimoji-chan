@@ -19,7 +19,7 @@
 		"demo",
 		"typescript"
 	],
-	"author": "vip0",
+	"author": "vipzero",
 	"license": "MIT",
 	"dependencies": {
 		"@material-ui/core": "^4.5.0",
@@ -39,6 +39,7 @@
 		"electron": "^6.0.11",
 		"electron-builder": "^21.2.0",
 		"electron-connect": "^0.6.3",
+		"electron-devtools-installer": "^2.2.4",
 		"electron-rebuild": "^1.8.6",
 		"electron-reload-webpack-plugin": "^2.0.4",
 		"eslint": "^6.5.1",
