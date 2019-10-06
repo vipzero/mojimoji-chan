@@ -8,9 +8,8 @@ import { speak, speakPatch } from '../utils'
 import PostTable from './PostTable'
 
 function App() {
-	const [watchId, setWatchId] = React.useState<NodeJS.Timeout | null>(null)
+	const [isWatch, setIsWatch] = React.useState<boolean>(false)
 	const [posts, setPosts] = React.useState<Post[]>([])
-	const isWatch = !!watchId
 	const [url, setUrl] = useLocalStorage<string>('url', '')
 
 	useEffect(() => {
@@ -30,7 +29,7 @@ function App() {
 			console.log('unmount')
 			ipcRenderer.removeAllListeners('posts')
 		}
-	}, [watchId])
+	}, [])
 
 	return (
 		<div>
@@ -45,14 +44,12 @@ function App() {
 				color={isWatch ? 'primary' : 'default'}
 				size="large"
 				onClick={async () => {
-					if (watchId) {
-						await ipcRenderer.send('unwatch', watchId)
-						setWatchId(null)
+					if (isWatch) {
+						ipcRenderer.send('unwatch')
+						setIsWatch(false)
 					} else {
-						ipcRenderer.once('watchstart', (event, id: NodeJS.Timeout) => {
-							setWatchId(id)
-						})
 						ipcRenderer.send('watch', url)
+						setIsWatch(true)
 						setPosts([])
 					}
 				}}

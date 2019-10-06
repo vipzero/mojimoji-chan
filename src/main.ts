@@ -62,19 +62,23 @@ app.on('activate', () => {
 	}
 })
 
+// NOTE: state 管理これでいいのか？
+const state: { watchId: NodeJS.Timeout | null } = { watchId: null }
+
 ipcMain.on('watch', async (event, url) => {
 	console.log('main -- watch')
-	const watchId = await watch(url, (posts, nth) => {
+	if (state.watchId) {
+		clearInterval(state.watchId)
+	}
+	state.watchId = await watch(url, (posts, nth) => {
 		event.sender.send('posts', posts, nth)
 	})
-
-	event.sender.send('watchstart', watchId)
 })
 
 ipcMain.on('unwatch', async () => {
 	console.log('main -- unwatch')
-	for (let i = 0; i < 10; i++) {
-		clearInterval(i)
+	if (state.watchId) {
+		clearInterval(state.watchId)
 	}
 })
 // In this file you can include the rest of your app"s specific main process
