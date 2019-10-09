@@ -1,11 +1,12 @@
 {
 	"extends": ["nzap", "nzap/typescript", "nzap/react"],
 	"parserOptions": {
-		"project": null
+		"project": "tsconfig.json"
 	},
 	"rules": {
 		"require-jsdoc": 0,
 		"no-unused-vars": 2,
-		"import/no-extraneous-dependencies": 0
+		"import/no-extraneous-dependencies": 0,
+		"@typescript-eslint/explicit-function-return-type": 0
 	}
 }

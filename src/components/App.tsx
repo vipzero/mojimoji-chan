@@ -45,7 +45,7 @@ function App() {
 			console.log('unmount')
 			ipcRenderer.removeAllListeners('posts')
 		}
-	}, [])
+	}, [speechConfig])
 
 	return (
 		<div>

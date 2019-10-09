@@ -6,6 +6,7 @@
 	"scripts": {
 		"start": "NODE_ENV=development webpack --config webpack.config.dev.js --watch",
 		"build": "webpack",
+		"test": "yarn lint",
 		"lint": "eslint src/**/*",
 		"pack": "electron-builder --dir",
 		"dist": "yarn run build && electron-builder"
@@ -43,7 +44,7 @@
 		"electron-rebuild": "^1.8.6",
 		"electron-reload-webpack-plugin": "^2.0.4",
 		"eslint": "^6.5.1",
-		"eslint-config-nzap": "^1.1.0",
+		"eslint-config-nzap": "^1.2.3",
 		"husky": "^3.0.8",
 		"lint-staged": "^9.4.1",
 		"spawn-sync": "^2.0.0",
