@@ -21,6 +21,7 @@ const useStyles = makeStyles((theme: Theme) =>
 )
 
 type User = {
+	id: string
 	name: string
 	// wachois: string
 	// ids: string[]
@@ -39,6 +40,22 @@ function postToUserId(post: Post): string {
 	return post.userId
 }
 
+const compressUsers = (users0: User[]): Record<string, User> => {
+	const groups = _.groupBy(users0, user =>
+		user.posts.length <= 10 ? 'under5' : 'many'
+	)
+
+	const users = _.keyBy(groups['many'], 'id')
+
+	users['under5'] = {
+		id: 'under5',
+		name: 'under5',
+		posts: _.flatten(_.map(groups['under5'], u => u.posts)),
+	}
+
+	return users
+}
+
 function groupByUser(posts: Post[]): Record<string, User> {
 	const users: Record<string, User> = {}
 
@@ -47,13 +64,14 @@ function groupByUser(posts: Post[]): Record<string, User> {
 
 		if (!(userId in users)) {
 			users[userId] = {
+				id: userId,
 				name: post.name,
 				posts: [],
 			}
 		}
 		users[userId].posts.push(post)
 	})
-	return users
+	return compressUsers(_.values(users))
 }
 
 const WrapTable = styled.div`
