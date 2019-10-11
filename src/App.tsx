@@ -7,8 +7,8 @@ import {
 	Theme,
 	withStyles,
 } from '@material-ui/core'
-import Home from './Home'
-import Config from './Config'
+import Home from './pages/Home'
+import Config from './pages/Config'
 
 type StyledTabsProps = {
 	value: number

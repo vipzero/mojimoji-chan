@@ -1,4 +1,4 @@
-import { SpeechConfig } from '../components/Home'
+import { SpeechConfig } from '../pages/Home'
 
 export function speak(text: string, config: SpeechConfig) {
 	const uttr = new SpeechSynthesisUtterance(text)
