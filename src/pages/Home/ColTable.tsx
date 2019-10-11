@@ -57,16 +57,18 @@ function groupByUser(posts: Post[]): Record<string, User> {
 }
 
 const WrapTable = styled.div`
-	display: grid;
-	grid-auto-flow: column;
-	grid-gap: 2px;
+	display: flex;
+	margin-left: 2px;
 	background: blue;
+	width: 100vw;
+	height: 100vh;
 `
 
 const UserColumn = styled.div`
-	display: grid;
-	grid-gap: 1px;
-	background: orange;
+	position: relative;
+	width: 330px;
+	min-width: 330px;
+	max-width: 330px;
 `
 
 type Props = {
@@ -82,11 +84,13 @@ function ColTable(props: Props) {
 		<Paper className={classes.root}>
 			<WrapTable>
 				{_.map(users, (user, userId) => (
-					<UserColumn key={userId}>
-						{user.posts.map(post => (
-							<PostCard key={post.number} post={post} />
-						))}
-					</UserColumn>
+					<div>
+						<UserColumn key={userId}>
+							{user.posts.map(post => (
+								<PostCard key={post.number} post={post} />
+							))}
+						</UserColumn>
+					</div>
 				))}
 			</WrapTable>
 			<FormGroup row style={{ marginLeft: '12px' }} />

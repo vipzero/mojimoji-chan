@@ -9,7 +9,6 @@ import SpeedDown from '@material-ui/icons/Hotel'
 import SpeedUp from '@material-ui/icons/Flight'
 
 import { speak, speakPatch } from '../../utils'
-import PostTable from './PostTable'
 import ColTable from './ColTable'
 
 export type SpeechConfig = {
@@ -137,7 +136,6 @@ function Home() {
 				40文字以降)
 			</Typography>
 			<ColTable posts={posts} />
-			<PostTable posts={posts} />
 		</div>
 	)
 }
