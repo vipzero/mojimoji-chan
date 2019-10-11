@@ -57,12 +57,16 @@ function groupByUser(posts: Post[]): Record<string, User> {
 }
 
 const WrapTable = styled.div`
-	display: flex;
+	display: grid;
+	grid-auto-flow: column;
+	grid-gap: 2px;
+	background: blue;
 `
 
 const UserColumn = styled.div`
 	display: grid;
-	grid-gap: 4px;
+	grid-gap: 1px;
+	background: orange;
 `
 
 type Props = {
