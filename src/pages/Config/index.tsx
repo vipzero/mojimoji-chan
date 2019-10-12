@@ -9,7 +9,7 @@ export type SpeechConfig = {
 function Config() {
 	return (
 		<div>
-			<Typography variant="h3">設定</Typography>
+			<Typography>設定</Typography>
 		</div>
 	)
 }

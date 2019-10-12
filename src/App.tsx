@@ -6,7 +6,11 @@ import {
 	createStyles,
 	Theme,
 	withStyles,
+	CssBaseline,
+	Typography,
 } from '@material-ui/core'
+
+import styled from 'styled-components'
 import Home from './pages/Home'
 import Config from './pages/Config'
 
@@ -15,7 +19,7 @@ type StyledTabsProps = {
 	onChange: (event: React.ChangeEvent<{}>, newValue: number) => void
 }
 
-const StyledTabs = withStyles({
+const HeadTabs = withStyles({
 	indicator: {
 		display: 'flex',
 		justifyContent: 'center',
@@ -30,24 +34,19 @@ const StyledTabs = withStyles({
 	<Tabs {...props} TabIndicatorProps={{ children: <div /> }} />
 ))
 
-type StyledTabProps = {
-	label: string
-}
+const StyledTab = styled(Tab)`
+	text-transform: none;
+	margin-right: 4px;
+	color: #fff !important;
+	font-size: 15px;
+	&:focus {
+		opacity: 1;
+	}
+`
 
-const StyledTab = withStyles((theme: Theme) =>
-	createStyles({
-		root: {
-			textTransform: 'none',
-			color: '#fff',
-			fontWeight: theme.typography.fontWeightRegular,
-			fontSize: theme.typography.pxToRem(15),
-			marginRight: theme.spacing(1),
-			'&:focus': {
-				opacity: 1,
-			},
-		},
-	})
-)((props: StyledTabProps) => <Tab disableRipple {...props} />)
+const HeadTab = (props: { label: string }) => (
+	<StyledTab disableRipple {...props} />
+)
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -57,26 +56,37 @@ const useStyles = makeStyles((theme: Theme) =>
 	})
 )
 
+const MainGrid = styled.div`
+	display: grid;
+`
+
 function App() {
 	const classes = useStyles()
 	const [activeTab, setActiveTab] = React.useState(0)
 
 	return (
 		<div>
-			<div className={classes.item}>
-				<StyledTabs value={activeTab} onChange={(e, v) => setActiveTab(v)}>
-					<StyledTab label="Home" />
-					<StyledTab label="Search" />
-					<StyledTab label="Config" />
-				</StyledTabs>
-			</div>
-			<div hidden={activeTab !== 0}>
-				<Home />
-			</div>
-			<div hidden={activeTab !== 1}>検索(実装中)</div>
-			<div hidden={activeTab !== 2}>
-				<Config />
-			</div>
+			<CssBaseline />
+			<MainGrid>
+				<div className={classes.item}>
+					<HeadTabs value={activeTab} onChange={(e, v) => setActiveTab(v)}>
+						<HeadTab label="Home" />
+						<HeadTab label="Search" />
+						<HeadTab label="Config" />
+					</HeadTabs>
+				</div>
+				<div>
+					<div hidden={activeTab !== 0}>
+						<Home />
+					</div>
+					<div hidden={activeTab !== 1}>
+						<Typography>検索(実装中)</Typography>
+					</div>
+					<div hidden={activeTab !== 2}>
+						<Config />
+					</div>
+				</div>
+			</MainGrid>
 		</div>
 	)
 }
