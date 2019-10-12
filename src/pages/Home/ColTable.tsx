@@ -53,7 +53,7 @@ function groupByUser(posts: Post[]): Record<string, User> {
 const WrapTable = styled.div<{ col: number }>`
 	display: grid;
 	grid-template-columns: repeat(${p => p.col}, 1fr);
-	grid-gap: 2px 4px;
+	grid-gap: 4px 2px;
 	background: #888;
 	width: 100%;
 	justify-content: space-evenly;
