@@ -7,11 +7,10 @@
     "target": "es2015",
     "module": "es2015",
     "moduleResolution": "node",
+    "types": ["react", "jest"],
     "esModuleInterop": true,
-    "lib": [
-      "dom",
-      "esnext"
-    ],
+    "lib": [ "dom", "esnext" ],
+    "rootDirs": ["src", "src/stories"],
     "sourceMap": true,
     "strict": true,
     "jsx": "react"

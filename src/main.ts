@@ -1,12 +1,17 @@
+import fs from 'fs'
 import { client } from 'electron-connect'
 import { app, BrowserWindow, ipcMain } from 'electron'
-import watch from 'chch/dist/watch'
+
+// import watch from 'chch/dist/watch'
+// import _ from 'lodash'
+import { Post } from 'chch/dist/types'
 
 let mainWindow: Electron.BrowserWindow | null
 
 function createWindow() {
 	// Create the browser window.
 	mainWindow = new BrowserWindow({
+		frame: true,
 		height: 600,
 		webPreferences: {
 			// preload: path.join(__dirname, 'preload.js'),
@@ -18,9 +23,6 @@ function createWindow() {
 
 	// and load the index.html of the app.
 	mainWindow.loadFile('index.html')
-
-	// Open the DevTools.
-	mainWindow.webContents.openDevTools()
 
 	client.create(mainWindow)
 
@@ -63,9 +65,20 @@ ipcMain.on('watch', async (event, url) => {
 	if (state.watchId) {
 		clearInterval(state.watchId)
 	}
-	state.watchId = await watch(url, (posts, nth) => {
-		event.sender.send('posts', posts, nth)
-	})
+	const data = fs.readFileSync('out.txt', 'utf-8')
+
+	const posts: Post[] = JSON.parse(data)
+
+	event.sender.send('posts', posts, 0)
+	// state.watchId = await watch(url, (posts, nth) => {
+	// 	const lastPost = _.last(posts)
+
+	// 	if (lastPost && state.watchId && lastPost.number >= 1000) {
+	// 		clearInterval(state.watchId)
+	// 	}
+
+	// 	event.sender.send('posts', posts, nth)
+	// })
 })
 
 ipcMain.on('unwatch', async () => {

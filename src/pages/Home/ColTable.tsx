@@ -4,7 +4,6 @@ import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import { FormGroup } from '@material-ui/core'
 import styled from 'styled-components'
-import _ from 'lodash'
 import { User } from '../../types'
 import PostCard from './PostCard'
 
@@ -57,6 +56,7 @@ const WrapTable = styled.div<{ col: number }>`
 	grid-gap: 2px 4px;
 	background: #888;
 	width: 100%;
+	justify-content: space-evenly;
 `
 
 type Props = {

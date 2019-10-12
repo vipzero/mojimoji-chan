@@ -1,5 +1,9 @@
 {
-	"extends": ["nzap", "nzap/typescript", "nzap/react"],
+	"extends": ["nzap", "nzap/typescript", "nzap/react", "nzap/jest"],
+
+	"parserOptions": {
+		"createDefaultProgram": true
+	},
 	"rules": {
 		"@typescript-eslint/explicit-function-return-type": 0,
 		"import/no-extraneous-dependencies": 0
