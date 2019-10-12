@@ -32,14 +32,12 @@ function Home() {
 		console.log('effect')
 		ipcRenderer.removeAllListeners('posts')
 		ipcRenderer.on('posts', (event, posts: Post[], nth: number) => {
-			console.log(nth)
-			// if (nth === 0) {
-			// 	// 初期値は最後の2レスだけ読み取る
-			// 	posts.splice(0, posts.length - 2)
-			// }
-
-			posts.map(p => speakPatch(p.message)).forEach(m => speak(m, speechConfig))
 			setPosts(s => s.concat(posts))
+			if (nth === 0) {
+				// 初期値は最後の2レスだけ読み取る
+				posts.splice(0, posts.length - 2)
+			}
+			posts.map(p => speakPatch(p.message)).forEach(m => speak(m, speechConfig))
 		})
 		return () => {
 			console.log('unmount')

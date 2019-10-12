@@ -8,6 +8,7 @@ const CardWrap = styled.div<{ num: number }>`
 	min-height: 50px;
 	overflow: hidden;
 	background: #f0f0f0;
+	border-radius: 1em 1em 0 0;
 `
 const Header = styled.div`
 	padding: 4px 8px 2px;
