@@ -4,11 +4,15 @@ import { Typography } from '@material-ui/core'
 import styled from 'styled-components'
 import { User } from '../../types'
 
+const col = 4
 const CardWrap = styled.div<{ num: number }>`
 	min-height: 50px;
 	overflow: hidden;
 	background: #f0f0f0;
 	border-radius: 1em 1em 0 0;
+	margin-top: ${p => ((p.num - 1) % col) * 12.5}px;
+	/* margin-top: -${p => (3 - ((p.num - 1) % col)) * 12.5}px; */
+	margin-bottom: -${p => ((p.num - 1) % col) * 12.5}px;
 `
 const Header = styled.div`
 	padding: 4px 8px 2px;

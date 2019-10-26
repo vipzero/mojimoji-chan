@@ -4,6 +4,7 @@ import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
 import { FormGroup } from '@material-ui/core'
 import styled from 'styled-components'
+import _ from 'lodash'
 import { User } from '../../types'
 import PostCard from './PostCard'
 
@@ -58,6 +59,16 @@ const WrapTable = styled.div<{ col: number }>`
 	justify-content: space-evenly;
 `
 
+const Stripe = styled.div`
+	background: repeating-linear-gradient(
+		to top,
+		#aaa,
+		#aaa 1px,
+		#fff 1px,
+		#fff 12.5px
+	);
+`
+
 type Props = {
 	posts: Post[]
 }
@@ -69,11 +80,19 @@ function ColTable({ posts }: Props) {
 
 	return (
 		<Paper className={classes.root}>
-			<WrapTable col={4}>
-				{posts.map(post => (
-					<PostCard key={post.number} post={post} user={users[post.userId]} />
+			<Stripe>
+				{_.chunk(posts, 4).map((posts4, ri) => (
+					<WrapTable key={ri} col={4}>
+						{posts4.map(post => (
+							<PostCard
+								key={post.number}
+								post={post}
+								user={users[post.userId]}
+							/>
+						))}
+					</WrapTable>
 				))}
-			</WrapTable>
+			</Stripe>
 			<FormGroup row style={{ marginLeft: '12px' }} />
 		</Paper>
 	)
