@@ -2,9 +2,8 @@ import fs from 'fs'
 import { client } from 'electron-connect'
 import { app, BrowserWindow, ipcMain } from 'electron'
 
-import watch from 'chch/dist/watch'
+import { watchSmart } from 'chch/dist/watch'
 import _ from 'lodash'
-import { Post } from 'chch/dist/types'
 
 let mainWindow: Electron.BrowserWindow | null
 
@@ -58,31 +57,34 @@ app.on('activate', () => {
 })
 
 // NOTE: state 管理これでいいのか？
-const state: { watchId: NodeJS.Timeout | null } = { watchId: null }
+const state: { watcher: ReturnType<typeof watchSmart> | null } = {
+	watcher: null,
+}
 
 ipcMain.on('watch', async (event, url) => {
 	console.log('main -- watch')
-	if (state.watchId) {
-		clearInterval(state.watchId)
+	if (state.watcher) {
+		state.watcher.stop()
 	}
 	// const data = fs.readFileSync('out.txt', 'utf-8')
 	// const posts: Post[] = JSON.parse(data)
 	// event.sender.send('posts', posts, 0)
-	state.watchId = await watch(url, (posts, nth) => {
-		const lastPost = _.last(posts)
+	state.watcher = await watchSmart(url, ({ newPosts, nthCall }) => {
+		const lastPost = _.last(newPosts)
 
-		if (lastPost && state.watchId && lastPost.number >= 1000) {
-			clearInterval(state.watchId)
+		if (lastPost && state.watcher && lastPost.number >= 1000) {
+			state.watcher.stop()
 		}
 
-		event.sender.send('posts', posts, nth)
+		event.sender.send('posts', newPosts, nthCall)
 	})
+	state.watcher.start()
 })
 
 ipcMain.on('unwatch', async () => {
 	console.log('main -- unwatch')
-	if (state.watchId) {
-		clearInterval(state.watchId)
+	if (state.watcher) {
+		state.watcher.stop()
 	}
 })
 // In this file you can include the rest of your app"s specific main process

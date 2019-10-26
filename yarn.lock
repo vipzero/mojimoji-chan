@@ -3662,16 +3662,15 @@ chardet@^0.7.0:
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
-chch@^1.4.0:
-  version "1.4.0"
-  resolved "https://registry.yarnpkg.com/chch/-/chch-1.4.0.tgz#dca9fa40aadc5f8f3e38fe19c69e53c8838c1bc3"
-  integrity sha512-poXfXfyEU7AgTSpWs2pk9BcdZPLxTgiK/5J+dneSsz6xBPXjLuNjkUUZfeITVtkc1L72h/2MFCbVWnVKHafvpQ==
+chch@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/chch/-/chch-2.0.0.tgz#bd744217fa8b6ad7fd05d522e69253a08f2cde95"
+  integrity sha512-OFtQIhmY0uaaDZmO+YDYmrYPpqDPJ3xpag6TGXBM82RyeDSz6ilsl67sWbQ1laYLD+LYV2BQ5intU4BhhoD3tA==
   dependencies:
     "2ch-trip" "^1.0.1"
     axios "^0.19.0"
     chalk "^2.4.2"
     cheerio "^1.0.0-rc.3"
-    dayjs "^1.8.16"
     encoding-japanese "^1.0.30"
     holiday-jp "^1.0.0"
     lodash "^4.17.15"
