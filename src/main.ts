@@ -1,4 +1,3 @@
-import fs from 'fs'
 import { client } from 'electron-connect'
 import { app, BrowserWindow, ipcMain } from 'electron'
 

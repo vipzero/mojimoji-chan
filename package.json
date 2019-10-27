@@ -1,99 +1,102 @@
 {
-  "name": "mojimoji-chan",
-  "description": "5ch読み上げデスクトップアプリ",
-  "version": "1.0.2",
-  "author": "vipzero",
-  "build": {
-    "productName": "MojimojiChan",
-    "appId": "dev.vipper.mojimojichan",
-    "asar": true,
-    "npmRebuild": false,
-    "files": [
-      "index.html",
-      "build/**/*",
-      "node_modules/**/*"
-    ]
-  },
-  "dependencies": {
-    "@material-ui/core": "^4.5.0",
-    "@material-ui/icons": "^4.4.3",
-    "chch": "^2.0.0",
-    "dayjs": "^1.8.16",
-    "lodash": "^4.17.15",
-    "react": "^16.10.2",
-    "react-dom": "^16.10.2",
-    "react-use": "^12.2.3",
-    "styled-components": "^4.4.0"
-  },
-  "devDependencies": {
-    "@babel/core": "^7.6.4",
-    "@storybook/addon-actions": "^5.2.5",
-    "@storybook/addon-info": "^5.2.5",
-    "@storybook/addon-links": "^5.2.5",
-    "@storybook/addons": "^5.2.5",
-    "@storybook/react": "^5.2.5",
-    "@types/jest": "^24.0.19",
-    "@types/lodash": "^4.14.144",
-    "@types/react": "^16.9.9",
-    "@types/react-dom": "^16.9.2",
-    "@types/styled-components": "^4.1.19",
-    "@types/webpack": "^4.39.5",
-    "awesome-typescript-loader": "^5.2.1",
-    "babel-loader": "^8.0.6",
-    "bufferutil": "^4.0.1",
-    "electron": "^7.0.0",
-    "electron-builder": "^21.2.0",
-    "electron-connect": "^0.6.3",
-    "electron-rebuild": "^1.8.6",
-    "electron-reload-webpack-plugin": "^2.0.4",
-    "eslint": "^6.5.1",
-    "eslint-config-nzap": "^1.2.5",
-    "husky": "^3.0.9",
-    "jest": "^24.9.0",
-    "lint-staged": "^9.4.2",
-    "react-docgen-typescript-loader": "^3.3.0",
-    "spawn-sync": "^2.0.0",
-    "ts-jest": "^24.1.0",
-    "ts-loader": "^6.2.1",
-    "typescript": "3.6.4",
-    "utf-8-validate": "^5.0.2",
-    "webpack": "^4.41.2",
-    "webpack-cli": "^3.3.9"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "lint-staged"
-    }
-  },
-  "keywords": [
-    "Electron",
-    "demo",
-    "quick",
-    "start",
-    "tutorial",
-    "typescript"
-  ],
-  "license": "MIT",
-  "lint-staged": {
-    "src/**/*.{json,css,scss,md}": [
-      "prettier --write",
-      "git add"
-    ],
-    "src/**/*.{js,jsx,ts,tsx}": [
-      "eslint --fix",
-      "git add"
-    ]
-  },
-  "main": "build/main.js",
-  "repository": "https://github.com/vipzero/MojimojiChan",
-  "scripts": {
-    "build": "webpack",
-    "dist": "yarn run build && electron-builder",
-    "lint": "eslint src/**/*",
-    "pack": "electron-builder --dir",
-    "start": "NODE_ENV=development webpack --config webpack.config.dev.js --watch",
-    "test": "yarn lint",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
-  }
+	"name": "mojimoji-chan",
+	"description": "5ch読み上げデスクトップアプリ",
+	"version": "1.0.2",
+	"author": "vipzero",
+	"build": {
+		"productName": "MojimojiChan",
+		"appId": "dev.vipper.mojimojichan",
+		"asar": true,
+		"npmRebuild": false,
+		"files": [
+			"index.html",
+			"build/**/*",
+			"node_modules/**/*"
+		]
+	},
+	"dependencies": {
+		"@material-ui/core": "^4.5.1",
+		"@material-ui/icons": "^4.5.1",
+		"chch": "^2.0.0",
+		"dayjs": "^1.8.16",
+		"lodash": "^4.17.15",
+		"react": "^16.11.0",
+		"react-dom": "^16.11.0",
+		"react-use": "^12.9.0",
+		"styled-components": "^4.4.0"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.6.4",
+		"@storybook/addon-actions": "^5.2.5",
+		"@storybook/addon-info": "^5.2.5",
+		"@storybook/addon-links": "^5.2.5",
+		"@storybook/addons": "^5.2.5",
+		"@storybook/react": "^5.2.5",
+		"@types/jest": "^24.0.20",
+		"@types/lodash": "^4.14.144",
+		"@types/react": "^16.9.11",
+		"@types/react-dom": "^16.9.3",
+		"@types/styled-components": "^4.1.19",
+		"@types/webpack": "^4.39.5",
+		"awesome-typescript-loader": "^5.2.1",
+		"babel-loader": "^8.0.6",
+		"bufferutil": "^4.0.1",
+		"electron": "^7.0.0",
+		"electron-builder": "^21.2.0",
+		"electron-connect": "^0.6.3",
+		"electron-rebuild": "^1.8.6",
+		"electron-reload-webpack-plugin": "^2.0.4",
+		"eslint": "^6.6.0",
+		"eslint-config-nzap": "^1.2.5",
+		"husky": "^3.0.9",
+		"jest": "^24.9.0",
+		"lint-staged": "^9.4.2",
+		"react-docgen-typescript-loader": "^3.3.0",
+		"spawn-sync": "^2.0.0",
+		"ts-jest": "^24.1.0",
+		"ts-loader": "^6.2.1",
+		"typescript": "3.6.4",
+		"utf-8-validate": "^5.0.2",
+		"webpack": "^4.41.2",
+		"webpack-cli": "^3.3.9"
+	},
+	"resolutions": {
+		"**/@types/react": "16.9.11"
+	},
+	"husky": {
+		"hooks": {
+			"pre-commit": "lint-staged"
+		}
+	},
+	"keywords": [
+		"Electron",
+		"demo",
+		"quick",
+		"start",
+		"tutorial",
+		"typescript"
+	],
+	"license": "MIT",
+	"lint-staged": {
+		"src/**/*.{json,css,scss,md}": [
+			"prettier --write",
+			"git add"
+		],
+		"src/**/*.{js,jsx,ts,tsx}": [
+			"eslint --fix",
+			"git add"
+		]
+	},
+	"main": "build/main.js",
+	"repository": "https://github.com/vipzero/MojimojiChan",
+	"scripts": {
+		"build": "webpack",
+		"dist": "yarn run build && electron-builder",
+		"lint": "eslint src/**/*",
+		"pack": "electron-builder --dir",
+		"start": "NODE_ENV=development webpack --config webpack.config.dev.js --watch",
+		"test": "yarn lint",
+		"storybook": "start-storybook -p 6006",
+		"build-storybook": "build-storybook"
+	}
 }

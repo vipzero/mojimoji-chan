@@ -5,6 +5,7 @@
       "*": ["@types/*"]
     },
     "target": "es2015",
+    "noImplicitAny": false,
     "module": "es2015",
     "moduleResolution": "node",
     "types": ["react", "jest"],
