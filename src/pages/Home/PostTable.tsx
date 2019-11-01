@@ -70,7 +70,7 @@ function PostTable({ posts }: Props) {
 								</TableCell>
 							)}
 							{visible['name'] && (
-								<TableCell size="small">{post.name.substr(0, 6)}</TableCell>
+								<TableCell size="small">{post.name.base}</TableCell>
 							)}
 							{visible['id'] && <TableCell>{post.userId}</TableCell>}
 							<TableCell align="left">{post.message}</TableCell>

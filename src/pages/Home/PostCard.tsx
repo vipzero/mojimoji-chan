@@ -2,14 +2,22 @@ import React from 'react'
 import { Post } from 'chch/dist/types'
 import { Typography } from '@material-ui/core'
 import styled from 'styled-components'
+import dayjs from 'dayjs'
+// eslint-disable-next-line import/no-unassigned-import
+import 'dayjs/locale/ja'
+
 import { User } from '../../types'
+
+dayjs.locale('ja')
 
 const col = 4
 const CardWrap = styled.div<{ num: number }>`
 	min-height: 50px;
+	min-width: 300px;
 	overflow: hidden;
 	background: #f0f0f0;
-	border-radius: 1em 1em 0 0;
+	border: solid 1px gray;
+	border-radius: 4px;
 	margin-top: ${p => ((p.num - 1) % col) * 12.5}px;
 	/* margin-top: -${p => (3 - ((p.num - 1) % col)) * 12.5}px; */
 	margin-bottom: -${p => ((p.num - 1) % col) * 12.5}px;
@@ -19,23 +27,23 @@ const Header = styled.div`
 	display: grid;
 	grid-auto-flow: column;
 	grid-gap: 4px;
-	grid-template-columns: max-content max-content max-content;
-	background: #cdcdcd;
-	border-radius: 1em;
+	border-bottom: dashed 2px gray;
+	background: #bababa;
+	/* grid-template-rows: 100px 50px; */
+	grid-template-columns: max-content 1fr max-content max-content;
+	grid-template-areas: 'icon num wacc id' 'icon name name time';
 `
 const Body = styled.div`
-	padding: 2px 8px 8px;
+	padding: 4px 8px 8px;
 	overflow: hidden;
-	height: 72px;
+	height: 76px;
 	display: box;
 	margin-bottom: 8px;
 `
 
 const Icon = styled.img`
-	height: 18px;
-	margin-top: 1px;
+	height: 40px;
 	border: 1px solid gray;
-	padding: 1px;
 `
 
 const LineText = styled(Typography)`
@@ -48,16 +56,46 @@ type Props = {
 	user: User
 }
 
+const toName = (post: Post) => {
+	return post.name.isDefault ? '' : post.name.base
+}
+
 const toIconUrl = (id: string) =>
-	`https://avatars.dicebear.com/v2/identicon/${id}.svg`
+	`https://avatars.dicebear.com/v2/bottts/${id}.svg`
+
+const toColorUrl = (id: string) =>
+	`https://avatars.dicebear.com/v2/initials/${id}.svg`
+
+const toTimeLabel = (ts: number) => dayjs(ts).format('HH:mm:ss.SSS')
+
+const Name = styled(Typography)`
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+`
 
 function PostCard({ post }: Props) {
 	return (
 		<CardWrap num={post.number}>
 			<Header>
-				<Typography variant="body2">{post.number}</Typography>
-				<Typography variant="body2">ID: {post.userId}</Typography>
-				<Icon src={toIconUrl(post.userId)} />
+				<Icon style={{ gridArea: 'icon' }} src={toIconUrl(post.userId)} />
+				<Typography style={{ gridArea: 'num' }} variant="body2">
+					{post.number}
+				</Typography>
+				<Typography style={{ gridArea: 'id' }} variant="body2">
+					{post.userId}
+				</Typography>
+				{post.name.wacchoi && (
+					<Typography style={{ gridArea: 'wacc' }} variant="body2">
+						{post.name.wacchoi.main}
+					</Typography>
+				)}
+				<div style={{ overflow: 'hidden', gridArea: 'name' }}>
+					<Name variant="body2">{toName(post)}</Name>
+				</div>
+				<Typography style={{ gridArea: 'time' }} variant="body2">
+					{toTimeLabel(post.timestamp)}
+				</Typography>
 			</Header>
 			<Body>
 				{post.message.split('  ').map((line, i) => (

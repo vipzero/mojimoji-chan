@@ -15,12 +15,35 @@ const user: User = {
 
 const post: Post = {
 	number: 999,
-	name: '以下、5ちゃんねるからVIPがお送りします',
+	name: {
+		base: '以下、5ちゃんねるからVIPがお送りします',
+		isDefault: true,
+		raw: '以下、5ちゃんねるからVIPがお送りします',
+		wacchoi: false,
+	},
+	images: ['http://o.5ch.net/1k7mr.png'],
 	userId: 'abcdefg',
 	timestamp: 1570869053889,
 	comma: 999,
 	message:
 		'ホットミルク久々に飲んでみるわ 子供の頃苦手だった 牛乳は好きだったけど \n ホットミルク久々に飲んでみるわ 子供の頃苦手だった 牛乳は好きだったけど',
+}
+
+const postWacchoi: Post = {
+	...post,
+	name: {
+		base: 'テストテスト◆WWWWWWWWWW',
+		isDefault: false,
+		raw: 'テストテスト◆WWWWWWWWWW (ﾜｯﾁｮｲWW 8f70-cmdO)',
+		wacchoi: {
+			aa: '8f',
+			bb: '70',
+			cccc: 'cmdO',
+			main: '8f70-cmdO',
+			nickname: 'ﾜｯﾁｮｲWW',
+			raw: '(ﾜｯﾁｮｲWW 8f70-cmdO)',
+		},
+	},
 }
 
 export const toStorybook = () => (
@@ -35,9 +58,9 @@ export const toStorybook = () => (
 				gridGap: '12px',
 			}}
 		>
-			<PostCard user={user} post={post} />
-			<PostCard user={user} post={post} />
-			<PostCard user={user} post={post} />
+			<PostCard user={user} post={postWacchoi} />
+			<PostCard user={user} post={postWacchoi} />
+			<PostCard user={user} post={postWacchoi} />
 		</div>
 		{[200, 350, 500].map(width => (
 			<div key={width}>

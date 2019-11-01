@@ -2013,10 +2013,10 @@
   resolved "https://registry.yarnpkg.com/@types/stack-utils/-/stack-utils-1.0.1.tgz#0a851d3bd96498fa25c33ab7278ed3bd65f06c3e"
   integrity sha512-l42BggppR6zLmpfU6fq9HEa2oGPEI8yrSPL3GITjfRInppYFahObbIQOQK3UGxEnyQpltZLaPe75046NOZQikw==
 
-"@types/styled-components@^4.1.19":
-  version "4.1.19"
-  resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-4.1.19.tgz#535b455d7744fda1608c605df82c0800eda61a09"
-  integrity sha512-nDkoTQ8ItcJiyEvTa24TwsIpIfNKCG+Lq0LvAwApOcjQ8OaeOOCg66YSPHBePHUh6RPt1LA8aEzRlgWhQPFqPg==
+"@types/styled-components@^4.1.20":
+  version "4.1.20"
+  resolved "https://registry.yarnpkg.com/@types/styled-components/-/styled-components-4.1.20.tgz#8afd41039c0fd582152e57ff75c58a5353870de6"
+  integrity sha512-WztLENdKY+H9udccx5ZhAblgTp08NSfOFYdGaWM0MMm+1tEOioYVFwIIQ7Hx+9wWXiWKDXeoX6R3D/i1obnG3g==
   dependencies:
     "@types/react" "*"
     "@types/react-native" "*"
@@ -3628,10 +3628,10 @@ chardet@^0.7.0:
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
-chch@^2.0.0:
-  version "2.0.0"
-  resolved "https://registry.yarnpkg.com/chch/-/chch-2.0.0.tgz#bd744217fa8b6ad7fd05d522e69253a08f2cde95"
-  integrity sha512-OFtQIhmY0uaaDZmO+YDYmrYPpqDPJ3xpag6TGXBM82RyeDSz6ilsl67sWbQ1laYLD+LYV2BQ5intU4BhhoD3tA==
+chch@^2.3.0:
+  version "2.3.0"
+  resolved "https://registry.yarnpkg.com/chch/-/chch-2.3.0.tgz#6e37fb4c99f287d41c9efb7826638d5fbfc8e98e"
+  integrity sha512-QdIf2CtmabSctY+BOrWLJ1QpxSyODnFHs+hWTDVnGNkbzVSVPr/wn9uLNVEBAEnhTc3K8xS9dCVd/LQrb8R6qQ==
   dependencies:
     "2ch-trip" "^1.0.1"
     axios "^0.19.0"

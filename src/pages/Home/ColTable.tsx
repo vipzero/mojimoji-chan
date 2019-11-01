@@ -42,7 +42,7 @@ function groupByUser(posts: Post[]): Record<string, User> {
 		if (!(userId in users)) {
 			users[userId] = {
 				id: userId,
-				name: post.name,
+				name: post.name.base,
 				// posts: [],
 			}
 		}
