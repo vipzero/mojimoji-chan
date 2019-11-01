@@ -1,6 +1,7 @@
 import React from 'react'
 import { Post } from 'chch/dist/types'
 import { CssBaseline } from '@material-ui/core'
+import randomColor from 'randomcolor'
 import PostCard from '../pages/Home/PostCard'
 import { User } from '../types'
 
@@ -9,8 +10,9 @@ export default {
 }
 
 const user: User = {
-	id: 'abcdefg',
+	id: 'Vu+pao9Sa',
 	name: 'あの',
+	color: randomColor({ luminosity: 'light', seed: 'Vu+pao9Sa' }),
 }
 
 const post: Post = {

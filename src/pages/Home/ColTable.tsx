@@ -5,6 +5,7 @@ import Paper from '@material-ui/core/Paper'
 import { FormGroup } from '@material-ui/core'
 import styled from 'styled-components'
 import _ from 'lodash'
+import randomColor from 'randomcolor'
 import { User } from '../../types'
 import PostCard from './PostCard'
 
@@ -43,6 +44,7 @@ function groupByUser(posts: Post[]): Record<string, User> {
 			users[userId] = {
 				id: userId,
 				name: post.name.base,
+				color: randomColor({ luminosity: 'light', seed: userId }),
 				// posts: [],
 			}
 		}
