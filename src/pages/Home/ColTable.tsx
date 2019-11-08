@@ -6,6 +6,7 @@ import { FormGroup } from '@material-ui/core'
 import styled from 'styled-components'
 import _ from 'lodash'
 import randomColor from 'randomcolor'
+import color from 'color'
 import { User } from '../../types'
 import PostCard from './PostCard'
 
@@ -41,10 +42,12 @@ function groupByUser(posts: Post[]): Record<string, User> {
 		const userId = postToUserId(post)
 
 		if (!(userId in users)) {
+			const c = color(randomColor({ luminosity: 'dark', seed: userId }))
+
 			users[userId] = {
 				id: userId,
 				name: post.name.base,
-				color: randomColor({ luminosity: 'light', seed: userId }),
+				color: c.darken(c.isDark() ? 0 : 0.5).hex(),
 				// posts: [],
 			}
 		}
@@ -61,15 +64,7 @@ const WrapTable = styled.div<{ col: number }>`
 	justify-content: space-evenly;
 `
 
-const Stripe = styled.div`
-	background: repeating-linear-gradient(
-		to top,
-		#aaa,
-		#aaa 1px,
-		#fff 1px,
-		#fff 12.5px
-	);
-`
+const Stripe = styled.div``
 
 type Props = {
 	posts: Post[]

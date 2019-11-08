@@ -15,8 +15,6 @@ const CardWrap = styled.div<{ num: number }>`
 	min-height: 50px;
 	min-width: 300px;
 	overflow: hidden;
-	background: #f0f0f0;
-	border: solid 1px gray;
 	border-radius: 4px;
 	margin-top: ${p => ((p.num - 1) % col) * 12.5}px;
 	/* margin-top: -${p => (3 - ((p.num - 1) % col)) * 12.5}px; */
@@ -25,6 +23,7 @@ const CardWrap = styled.div<{ num: number }>`
 const Header = styled.div<{ color: string }>`
 	background: ${p => p.color};
 	padding: 4px 8px 2px;
+	color: white;
 	display: grid;
 	grid-auto-flow: column;
 	grid-gap: 4px;
@@ -39,6 +38,7 @@ const Body = styled.div`
 	height: 76px;
 	display: box;
 	margin-bottom: 8px;
+	background: #303030;
 `
 
 const Icon = styled.img`

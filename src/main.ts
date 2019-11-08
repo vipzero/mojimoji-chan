@@ -6,17 +6,19 @@ import _ from 'lodash'
 
 let mainWindow: Electron.BrowserWindow | null
 
+const width = 1500
+
 function createWindow() {
 	// Create the browser window.
 	mainWindow = new BrowserWindow({
 		frame: true,
-		height: 600,
+		height: (width * 3) / 4,
 		webPreferences: {
 			// preload: path.join(__dirname, 'preload.js'),
 			nodeIntegration: true,
 			// webSecurity: false,
 		},
-		width: 800,
+		width,
 	})
 
 	// and load the index.html of the app.

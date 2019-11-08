@@ -8,11 +8,20 @@ import {
 	withStyles,
 	CssBaseline,
 	Typography,
-} from '@material-ui/core'
+ createMuiTheme } from '@material-ui/core'
 
 import styled from 'styled-components'
+import { ThemeProvider } from '@material-ui/styles'
 import Home from './pages/Home'
 import Config from './pages/Config'
+
+
+
+const theme = createMuiTheme({
+	palette: {
+		type: 'dark',
+	},
+})
 
 type StyledTabsProps = {
 	value: number
@@ -65,7 +74,7 @@ function App() {
 	const [activeTab, setActiveTab] = React.useState(0)
 
 	return (
-		<div>
+		<ThemeProvider theme={theme}>
 			<CssBaseline />
 			<MainGrid>
 				<div className={classes.item}>
@@ -87,7 +96,7 @@ function App() {
 					</div>
 				</div>
 			</MainGrid>
-		</div>
+		</ThemeProvider>
 	)
 }
 
