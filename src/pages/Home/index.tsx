@@ -7,6 +7,7 @@ import VolumeDown from '@material-ui/icons/VolumeDown'
 import VolumeUp from '@material-ui/icons/VolumeUp'
 import SpeedDown from '@material-ui/icons/Hotel'
 import SpeedUp from '@material-ui/icons/Flight'
+import styled from 'styled-components'
 
 import { speak, speakPatch } from '../../utils'
 import ColTable from './ColTable'
@@ -15,6 +16,13 @@ export type SpeechConfig = {
 	volume: number
 	rate: number
 }
+
+const Wrapper = styled.div`
+	height: calc(100vh - 48px);
+	display: grid;
+	grid-template-rows: max-content 1fr;
+	grid-template-areas: 'control' 'table';
+`
 
 function Home() {
 	const [isWatch, setIsWatch] = React.useState<boolean>(false)
@@ -46,95 +54,107 @@ function Home() {
 	}, [speechConfig])
 
 	return (
-		<div>
-			<TextField
-				label="URL"
-				value={url}
-				fullWidth
-				onChange={v => setUrl(v.target.value)}
-			/>
-			<div
-				style={{
-					display: 'grid',
-					gridTemplateColumns: '1fr 1fr 2fr',
-					gridGap: '8px',
-				}}
-			>
-				<Grid container spacing={2}>
-					<Grid item>
-						<VolumeDown />
-					</Grid>
-					<Grid item xs>
-						<Slider
-							defaultValue={speechConfig.volume}
-							getAriaValueText={v => String(v)}
-							aria-labelledby="speech-config-volume"
-							onChange={(e, volume) => {
-								if (typeof volume === 'number') {
-									setSpeechConfig({ ...speechConfig, volume })
-								}
-							}}
-							step={0.1}
-							marks
-							min={0}
-							max={1.0}
-							valueLabelDisplay="auto"
-						/>
-					</Grid>
-					<Grid item>
-						<VolumeUp />
-					</Grid>
-				</Grid>
-				<Grid container spacing={2}>
-					<Grid item>
-						<SpeedDown />
-					</Grid>
-					<Grid item xs>
-						<Slider
-							defaultValue={speechConfig.rate}
-							getAriaValueText={v => String(v)}
-							aria-labelledby="speech-config-rate"
-							onChange={(e, rate) => {
-								if (typeof rate === 'number') {
-									setSpeechConfig({ ...speechConfig, rate })
-								}
-							}}
-							step={0.5}
-							marks
-							min={0}
-							max={10.0}
-							valueLabelDisplay="auto"
-						/>
-					</Grid>
-					<Grid item>
-						<SpeedUp />
-					</Grid>
-				</Grid>
-				<Button
-					variant="outlined"
-					color={isWatch ? 'primary' : 'default'}
-					size="large"
-					onClick={async () => {
-						if (isWatch) {
-							ipcRenderer.send('unwatch')
-							setIsWatch(false)
-						} else {
-							ipcRenderer.send('watch', url)
-							setIsWatch(true)
-							setPosts([])
-						}
+		<Wrapper>
+			<div style={{ gridArea: 'control', padding: '12px' }}>
+				<div
+					style={{
+						display: 'grid',
+						gridTemplateColumns: 'max-content 1fr',
+						gridGap: '1em',
 					}}
 				>
-					{isWatch ? '終了' : '読み上げ開始'}
-				</Button>
+					<Button
+						variant="outlined"
+						color={isWatch ? 'primary' : 'default'}
+						size="large"
+						onClick={async () => {
+							if (isWatch) {
+								ipcRenderer.send('unwatch')
+								setIsWatch(false)
+							} else {
+								ipcRenderer.send('watch', url)
+								setIsWatch(true)
+								setPosts([])
+							}
+						}}
+					>
+						{isWatch ? '終了' : '読み上げ開始'}
+					</Button>
+					<TextField
+						label="URL"
+						value={url}
+						fullWidth
+						onChange={v => setUrl(v.target.value)}
+					/>
+				</div>
+				<div
+					style={{
+						display: 'grid',
+						gridTemplateColumns: '1fr 1fr 2fr',
+						gridGap: '8px',
+					}}
+				>
+					<Grid container spacing={2}>
+						<Grid item>
+							<VolumeDown />
+						</Grid>
+						<Grid item xs>
+							<Slider
+								defaultValue={speechConfig.volume}
+								getAriaValueText={v => String(v)}
+								aria-labelledby="speech-config-volume"
+								onChange={(e, volume) => {
+									if (typeof volume === 'number') {
+										setSpeechConfig({ ...speechConfig, volume })
+									}
+								}}
+								step={0.1}
+								marks
+								min={0}
+								max={1.0}
+								valueLabelDisplay="auto"
+							/>
+						</Grid>
+						<Grid item>
+							<VolumeUp />
+						</Grid>
+					</Grid>
+					<Grid container spacing={2}>
+						<Grid item>
+							<SpeedDown />
+						</Grid>
+						<Grid item xs>
+							<Slider
+								defaultValue={speechConfig.rate}
+								getAriaValueText={v => String(v)}
+								aria-labelledby="speech-config-rate"
+								onChange={(e, rate) => {
+									if (typeof rate === 'number') {
+										setSpeechConfig({ ...speechConfig, rate })
+									}
+								}}
+								step={0.5}
+								marks
+								min={0}
+								max={10.0}
+								valueLabelDisplay="auto"
+							/>
+						</Grid>
+						<Grid item>
+							<SpeedUp />
+						</Grid>
+					</Grid>
+				</div>
+				<br />
+				<Typography variant="caption">
+					(対応確認済み: VIP,パー速VIP) (収集時間: 1分おき) (読み上げ省略:
+					40文字以降)
+				</Typography>
 			</div>
-			<br />
-			<Typography variant="caption">
-				(対応確認済み: VIP,パー速VIP) (収集時間: 1分おき) (読み上げ省略:
-				40文字以降)
-			</Typography>
-			<ColTable posts={posts} />
-		</div>
+			<div style={{ gridArea: 'table', overflowY: 'scroll' }}>
+				<ColTable posts={posts} />
+			</div>
+		</Wrapper>
 	)
 }
 

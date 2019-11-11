@@ -47,7 +47,7 @@ function groupByUser(posts: Post[]): Record<string, User> {
 			users[userId] = {
 				id: userId,
 				name: post.name.base,
-				color: c.darken(c.isDark() ? 0 : 0.5).hex(),
+				color: c.darken(c.isDark ? 0.6 : 0.9).hex(),
 				// posts: [],
 			}
 		}
@@ -64,7 +64,9 @@ const WrapTable = styled.div<{ col: number }>`
 	justify-content: space-evenly;
 `
 
-const Stripe = styled.div``
+const Stripe = styled.div`
+	padding-bottom: 100px;
+`
 
 type Props = {
 	posts: Post[]
