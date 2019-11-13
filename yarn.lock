@@ -3652,10 +3652,10 @@ chardet@^0.7.0:
   resolved "https://registry.yarnpkg.com/chardet/-/chardet-0.7.0.tgz#90094849f0937f2eedc2425d0d28a9e5f0cbad9e"
   integrity sha512-mT8iDcrh03qDGRRmoA2hmBJnxpllMR+0/0qlzjqZES6NdiWDcZkCNAk4rPFZ9Q85r27unkiNNg8ZOiwZXBHwcA==
 
-chch@^2.3.0:
-  version "2.3.0"
-  resolved "https://registry.yarnpkg.com/chch/-/chch-2.3.0.tgz#6e37fb4c99f287d41c9efb7826638d5fbfc8e98e"
-  integrity sha512-QdIf2CtmabSctY+BOrWLJ1QpxSyODnFHs+hWTDVnGNkbzVSVPr/wn9uLNVEBAEnhTc3K8xS9dCVd/LQrb8R6qQ==
+chch@^2.4.0:
+  version "2.4.0"
+  resolved "https://registry.yarnpkg.com/chch/-/chch-2.4.0.tgz#8893b6dc4b305d94ad6c6fec1ec07512d909ce2d"
+  integrity sha512-6D2GbMx+tRVvYi2FJNk4CaQBLVRxEfLyPrF0UbtGyKhx9jmxYsrvUoGR8cTD79XOzPMRCanle1Qhmp3ZZ7Dxeg==
   dependencies:
     "2ch-trip" "^1.0.1"
     axios "^0.19.0"

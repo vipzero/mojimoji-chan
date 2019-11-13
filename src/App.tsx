@@ -7,15 +7,14 @@ import {
 	Theme,
 	withStyles,
 	CssBaseline,
-	Typography,
- createMuiTheme } from '@material-ui/core'
+	createMuiTheme,
+} from '@material-ui/core'
 
 import styled from 'styled-components'
 import { ThemeProvider } from '@material-ui/styles'
 import Home from './pages/Home'
 import Config from './pages/Config'
-
-
+import Search from './pages/Search'
 
 const theme = createMuiTheme({
 	palette: {
@@ -89,7 +88,7 @@ function App() {
 						<Home />
 					</div>
 					<div hidden={activeTab !== 1}>
-						<Typography>検索(実装中)</Typography>
+						<Search />
 					</div>
 					<div hidden={activeTab !== 2}>
 						<Config />

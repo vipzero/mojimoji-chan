@@ -3,6 +3,7 @@ import { app, BrowserWindow, ipcMain } from 'electron'
 
 import { watchSmart } from 'chch/dist/watch'
 import _ from 'lodash'
+import { getThreads } from 'chch/dist/dump'
 
 let mainWindow: Electron.BrowserWindow | null
 
@@ -61,6 +62,12 @@ app.on('activate', () => {
 const state: { watcher: ReturnType<typeof watchSmart> | null } = {
 	watcher: null,
 }
+
+ipcMain.on('loadThreads', async event => {
+	const { threads } = await getThreads()
+
+	event.sender.send('threads', threads)
+})
 
 ipcMain.on('watch', async (event, url) => {
 	console.log('main -- watch')
