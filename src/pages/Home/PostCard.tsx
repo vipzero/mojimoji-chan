@@ -15,23 +15,22 @@ const CardWrap = styled.div<{ num: number }>`
 	min-height: 50px;
 	min-width: 300px;
 	overflow: hidden;
-	background: #f0f0f0;
-	border: solid 1px gray;
 	border-radius: 4px;
 	margin-top: ${p => ((p.num - 1) % col) * 12.5}px;
 	/* margin-top: -${p => (3 - ((p.num - 1) % col)) * 12.5}px; */
 	margin-bottom: -${p => ((p.num - 1) % col) * 12.5}px;
 `
-const Header = styled.div`
+const Header = styled.div<{ color: string }>`
+	background: ${p => p.color};
 	padding: 4px 8px 2px;
+	color: white;
 	display: grid;
 	grid-auto-flow: column;
 	grid-gap: 4px;
 	border-bottom: dashed 2px gray;
-	background: #bababa;
 	/* grid-template-rows: 100px 50px; */
-	grid-template-columns: max-content 1fr max-content max-content;
-	grid-template-areas: 'icon num wacc id' 'icon name name time';
+	grid-template-columns: 1fr max-content max-content;
+	grid-template-areas: 'num wacc id' 'name name time';
 `
 const Body = styled.div`
 	padding: 4px 8px 8px;
@@ -39,6 +38,7 @@ const Body = styled.div`
 	height: 76px;
 	display: box;
 	margin-bottom: 8px;
+	background: #303030;
 `
 
 const Icon = styled.img`
@@ -51,10 +51,11 @@ const LineText = styled(Typography)`
 	font-size: 15px !important;
 `
 
-type Props = {
-	post: Post
-	user: User
-}
+const Name = styled(Typography)`
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+`
 
 const toName = (post: Post) => {
 	return post.name.isDefault ? '' : post.name.base
@@ -68,17 +69,15 @@ const toColorUrl = (id: string) =>
 
 const toTimeLabel = (ts: number) => dayjs(ts).format('HH:mm:ss.SSS')
 
-const Name = styled(Typography)`
-	overflow: hidden;
-	text-overflow: ellipsis;
-	white-space: nowrap;
-`
+type Props = {
+	post: Post
+	user: User
+}
 
-function PostCard({ post }: Props) {
+function PostCard({ post, user }: Props) {
 	return (
 		<CardWrap num={post.number}>
-			<Header>
-				<Icon style={{ gridArea: 'icon' }} src={toIconUrl(post.userId)} />
+			<Header color={user.color}>
 				<Typography style={{ gridArea: 'num' }} variant="body2">
 					{post.number}
 				</Typography>
