@@ -10,6 +10,8 @@ import {
 import styled from 'styled-components'
 import { ThreadMin } from 'chch/dist/types'
 import { ipcRenderer } from 'electron'
+import _ from 'lodash'
+import useLocalStorage from 'react-use/lib/useLocalStorage'
 
 const Wrapper = styled.div`
 	padding: 12px;
@@ -22,9 +24,16 @@ const ThreadRow = ({ thread }: { thread: ThreadMin }) => (
 	</TableRow>
 )
 
+const threadRows = (threads: ThreadMin[]) =>
+	threads.map(thread => <ThreadRow key={thread.id} thread={thread} />)
+
 function Search() {
 	const [threads, setThreads] = useState<ThreadMin[]>([])
 	const [text, setText] = useState<string>('')
+	const [keywords, setKeywords] = useLocalStorage<Record<string, boolean>>(
+		'keywords',
+		{}
+	)
 
 	function loadThread() {
 		ipcRenderer.send('loadThreads')
@@ -55,14 +64,42 @@ function Search() {
 			<Table>
 				<TableBody>
 					<>
-						{threads
-							.filter(th => th.title.includes(text))
-							.map(thread => (
-								<ThreadRow key={thread.id} thread={thread} />
-							))}
-						{threads.map(thread => (
-							<ThreadRow key={thread.id} thread={thread} />
+						{text !== '' && (
+							<>
+								<TableRow>
+									<TableCell>{text}</TableCell>
+									<TableCell>
+										<Button
+											onClick={() =>
+												setKeywords(_.pickBy({ ...keywords, [text]: true }))
+											}
+										>
+											保存
+										</Button>
+									</TableCell>
+								</TableRow>
+								{threadRows(threads.filter(th => th.title.includes(text)))}
+							</>
+						)}
+						{_.uniq(_.keys(keywords)).map(keyword => (
+							<>
+								<TableRow>
+									<TableCell>{keyword}</TableCell>
+									<TableCell>
+										<Button
+											onClick={() =>
+												setKeywords(_.pickBy({ ...keywords, [keyword]: false }))
+											}
+										>
+											削除
+										</Button>
+									</TableCell>
+								</TableRow>
+
+								{threadRows(threads.filter(th => th.title.includes(keyword)))}
+							</>
 						))}
+						{threadRows(threads.filter(th => th.title.includes(text)))}
 					</>
 				</TableBody>
 			</Table>
