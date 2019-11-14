@@ -20,6 +20,14 @@ const theme = createMuiTheme({
 	palette: {
 		type: 'dark',
 	},
+	props: {
+		MuiTextField: {
+			variant: 'outlined',
+		},
+		MuiButton: {
+			variant: 'outlined',
+		},
+	},
 })
 
 type StyledTabsProps = {

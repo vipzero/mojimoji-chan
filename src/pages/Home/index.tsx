@@ -64,7 +64,6 @@ function Home() {
 					}}
 				>
 					<Button
-						variant="outlined"
 						color={isWatch ? 'primary' : 'default'}
 						size="large"
 						onClick={async () => {
