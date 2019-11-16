@@ -1,22 +1,24 @@
 import React, { useEffect } from 'react'
-import useLocalStorage from 'react-use/lib/useLocalStorage'
 import { Post } from 'chch/dist/types'
-import { Button, Typography, TextField, Slider, Grid } from '@material-ui/core'
+import {
+	Typography,
+	TextField,
+	Slider,
+	Grid,
+	IconButton,
+} from '@material-ui/core'
 import { ipcRenderer } from 'electron'
 import VolumeDown from '@material-ui/icons/VolumeDown'
 import VolumeUp from '@material-ui/icons/VolumeUp'
 import SpeedDown from '@material-ui/icons/Hotel'
 import SpeedUp from '@material-ui/icons/Flight'
+import PlayIcon from '@material-ui/icons/PlayCircleFilledTwoTone'
+import StopIcon from '@material-ui/icons/PauseCircleFilledTwoTone'
 import styled from 'styled-components'
 
 import { useGlobalState } from '../../store'
 import { speak, speakPatch } from '../../utils'
 import ColTable from './ColTable'
-
-export type SpeechConfig = {
-	volume: number
-	rate: number
-}
 
 const Wrapper = styled.div`
 	height: calc(100vh - 48px);
@@ -26,15 +28,12 @@ const Wrapper = styled.div`
 `
 
 function Home() {
-	const [isWatch, setIsWatch] = React.useState<boolean>(false)
+	console.log(null == 0)
+
+	const [isWatch, setIsWatch] = useGlobalState('isWatch')
 	const [posts, setPosts] = React.useState<Post[]>([])
-	const [speechConfig, setSpeechConfig] = useLocalStorage<SpeechConfig>(
-		'speechConfig',
-		{
-			volume: 0.5,
-			rate: 5,
-		}
-	)
+
+	const [speechConfig, setSpeechConfig] = useGlobalState('speechConfig')
 	const [url, setUrl] = useGlobalState('url')
 
 	useEffect(() => {
@@ -64,24 +63,32 @@ function Home() {
 						gridGap: '1em',
 					}}
 				>
-					<Button
-						color={isWatch ? 'primary' : 'default'}
-						size="large"
-						onClick={async () => {
-							if (isWatch) {
+					{isWatch ? (
+						<IconButton
+							color="secondary"
+							onClick={async () => {
 								ipcRenderer.send('unwatch')
 								setIsWatch(false)
-							} else {
+							}}
+						>
+							<StopIcon fontSize="large" />
+						</IconButton>
+					) : (
+						<IconButton
+							color={'primary'}
+							onClick={async () => {
 								ipcRenderer.send('watch', url)
 								setIsWatch(true)
 								setPosts([])
-							}
-						}}
-					>
-						{isWatch ? '終了' : '読み上げ開始'}
-					</Button>
+							}}
+						>
+							<PlayIcon fontSize="large" />
+						</IconButton>
+					)}
+
 					<TextField
 						label="URL"
+						disabled={isWatch}
 						value={url}
 						fullWidth
 						onChange={v => setUrl(v.target.value)}

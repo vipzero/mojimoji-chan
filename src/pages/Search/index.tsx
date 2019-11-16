@@ -25,6 +25,7 @@ const Wrapper = styled.div`
 const ThreadRow = ({ thread }: { thread: ThreadMin }) => {
 	const [url, setUrl] = useGlobalState('url')
 	const setActiveTab = useGlobalState('activeTab')[1]
+	const setIsWatch = useGlobalState('isWatch')[1]
 
 	return (
 		<TableRow>
@@ -36,6 +37,8 @@ const ThreadRow = ({ thread }: { thread: ThreadMin }) => {
 					size="small"
 					onClick={() => {
 						setUrl(thread.url)
+						setIsWatch(false)
+						ipcRenderer.send('unwatch')
 						setActiveTab(0)
 					}}
 				>
