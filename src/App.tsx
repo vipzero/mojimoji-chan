@@ -15,6 +15,7 @@ import { ThemeProvider } from '@material-ui/styles'
 import Home from './pages/Home'
 import Config from './pages/Config'
 import Search from './pages/Search'
+import { GlobalStateProvider, useGlobalState } from './store'
 
 const theme = createMuiTheme({
 	palette: {
@@ -76,34 +77,42 @@ const MainGrid = styled.div`
 	display: grid;
 `
 
-function App() {
+function Main() {
 	const classes = useStyles()
-	const [activeTab, setActiveTab] = React.useState(0)
+	const [activeTab, setActiveTab] = useGlobalState('activeTab')
 
 	return (
-		<ThemeProvider theme={theme}>
-			<CssBaseline />
-			<MainGrid>
-				<div className={classes.item}>
-					<HeadTabs value={activeTab} onChange={(e, v) => setActiveTab(v)}>
-						<HeadTab label="Home" />
-						<HeadTab label="Search" />
-						<HeadTab label="Config" />
-					</HeadTabs>
+		<MainGrid>
+			<div className={classes.item}>
+				<HeadTabs value={activeTab} onChange={(e, v) => setActiveTab(v)}>
+					<HeadTab label="Home" />
+					<HeadTab label="Search" />
+					<HeadTab label="Config" />
+				</HeadTabs>
+			</div>
+			<div>
+				<div hidden={activeTab !== 0}>
+					<Home />
 				</div>
-				<div>
-					<div hidden={activeTab !== 0}>
-						<Home />
-					</div>
-					<div hidden={activeTab !== 1}>
-						<Search />
-					</div>
-					<div hidden={activeTab !== 2}>
-						<Config />
-					</div>
+				<div hidden={activeTab !== 1}>
+					<Search />
 				</div>
-			</MainGrid>
-		</ThemeProvider>
+				<div hidden={activeTab !== 2}>
+					<Config />
+				</div>
+			</div>
+		</MainGrid>
+	)
+}
+
+function App() {
+	return (
+		<GlobalStateProvider>
+			<ThemeProvider theme={theme}>
+				<CssBaseline />
+				<Main />
+			</ThemeProvider>
+		</GlobalStateProvider>
 	)
 }
 

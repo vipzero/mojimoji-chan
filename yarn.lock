@@ -10097,6 +10097,11 @@ react-helmet-async@^1.0.2:
     react-fast-compare "^2.0.4"
     shallowequal "^1.1.0"
 
+react-hooks-global-state@^0.16.0:
+  version "0.16.0"
+  resolved "https://registry.yarnpkg.com/react-hooks-global-state/-/react-hooks-global-state-0.16.0.tgz#560fd523c9612f999af07ac86a8e399255934d59"
+  integrity sha512-aLM+i/JTl4qXnBQRs1pLZLSOsWQvZZC+uVkfk/QcXv/m6bNYDqwvNtzV1hcC9TnzNc6cTzlIcUkK/MW2zHSCkw==
+
 react-hotkeys@2.0.0-pre4:
   version "2.0.0-pre4"
   resolved "https://registry.yarnpkg.com/react-hotkeys/-/react-hotkeys-2.0.0-pre4.tgz#a1c248a51bdba4282c36bf3204f80d58abc73333"

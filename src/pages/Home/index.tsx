@@ -9,6 +9,7 @@ import SpeedDown from '@material-ui/icons/Hotel'
 import SpeedUp from '@material-ui/icons/Flight'
 import styled from 'styled-components'
 
+import { useGlobalState } from '../../store'
 import { speak, speakPatch } from '../../utils'
 import ColTable from './ColTable'
 
@@ -34,7 +35,7 @@ function Home() {
 			rate: 5,
 		}
 	)
-	const [url, setUrl] = useLocalStorage<string>('url', '')
+	const [url, setUrl] = useGlobalState('url')
 
 	useEffect(() => {
 		console.log('effect')

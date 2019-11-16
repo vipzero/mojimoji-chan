@@ -16,22 +16,35 @@ import { ThreadMin } from 'chch/dist/types'
 import { ipcRenderer } from 'electron'
 import _ from 'lodash'
 import useLocalStorage from 'react-use/lib/useLocalStorage'
+import { useGlobalState } from '../../store'
 
 const Wrapper = styled.div`
 	padding: 12px;
 `
 
-const ThreadRow = ({ thread }: { thread: ThreadMin }) => (
-	<TableRow>
-		<TableCell>{thread.title}</TableCell>
-		<TableCell>{thread.url}</TableCell>
-		<TableCell>
-			<IconButton size="small" onClick={() => {}}>
-				<PlayIcon />
-			</IconButton>
-		</TableCell>
-	</TableRow>
-)
+const ThreadRow = ({ thread }: { thread: ThreadMin }) => {
+	const [url, setUrl] = useGlobalState('url')
+	const setActiveTab = useGlobalState('activeTab')[1]
+
+	return (
+		<TableRow>
+			<TableCell>{thread.title}</TableCell>
+			<TableCell>{thread.url}</TableCell>
+			<TableCell style={{ width: '2em' }}>
+				<IconButton
+					disabled={thread.url === url}
+					size="small"
+					onClick={() => {
+						setUrl(thread.url)
+						setActiveTab(0)
+					}}
+				>
+					<PlayIcon />
+				</IconButton>
+			</TableCell>
+		</TableRow>
+	)
+}
 
 const KeywordBox = styled.div`
 	margin-top: 20px;
@@ -87,15 +100,17 @@ function Search() {
 				<KeywordBox>
 					<KeywordHeader>
 						<Typography variant="h6">{text}</Typography>
-						<Button
-							style={{ marginLeft: '12px' }}
-							size="small"
-							onClick={() =>
-								setKeywords(_.pickBy({ ...keywords, [text]: true }))
-							}
-						>
-							保存
-						</Button>
+						{!keywords[text] && (
+							<Button
+								style={{ marginLeft: '12px' }}
+								size="small"
+								onClick={() =>
+									setKeywords(_.pickBy({ ...keywords, [text]: true }))
+								}
+							>
+								保存
+							</Button>
+						)}
 					</KeywordHeader>
 					<Paper>
 						<Table size="small">
@@ -130,7 +145,7 @@ function Search() {
 						</Paper>
 					</KeywordBox>
 				))}
-			<Typography variant="h6" style={{ paddingBottom: '12px' }}>
+			<Typography variant="h6" style={{ padding: '12px 0' }}>
 				全スレ
 			</Typography>
 			<Paper>
