@@ -35,7 +35,7 @@ jobs:
           yarn run dist
       - name: Cleanup artifacts
         run: |
-          npx rimraf "dist/!(*.exe|*.deb|*.AppImage|*.dmg)"
+          ./node_modules/.bin/rimraf "dist/!(*.exe|*.deb|*.AppImage|*.dmg)"
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
