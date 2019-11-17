@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useRef } from 'react'
 import { Post } from 'chch/dist/types'
 import { TextField, IconButton, Button } from '@material-ui/core'
 import ArrowUp from '@material-ui/icons/Publish'
@@ -39,7 +39,7 @@ const Wrapper = styled.div`
 	height: calc(100vh - 48px);
 	display: grid;
 	grid-template-rows: max-content max-content 1fr max-content;
-	grid-template-areas: 'control' 'table-after' 'table' 'table-before';
+	grid-template-areas: 'control' 'table-before' 'table' 'table-after';
 `
 
 function Home() {
@@ -48,6 +48,7 @@ function Home() {
 	const speechConfig = useSelector(getSpeechConfig)
 	const [posts, setPosts] = React.useState<Post[]>([])
 	const dispatch = useDispatch()
+	const tableRef = useRef<HTMLDivElement>(null)
 
 	useEffect(() => {
 		console.log('effect')
@@ -108,31 +109,48 @@ function Home() {
 					/>
 				</div>
 			</div>
-			<div style={{ gridArea: 'table-after', textAlign: 'right' }}>
-				<Button
-					size="small"
-					variant="contained"
-					color="primary"
-					endIcon={<ArrowUp />}
-				>
-					Top
-				</Button>
-			</div>
-			<ScrollFrame>
+			<ScrollButtonDiv
+				icon={<ArrowUp />}
+				gridArea="table-before"
+				onClick={() => {
+					if (tableRef.current) {
+						tableRef.current.scrollTo({ top: 0 })
+					}
+				}}
+				text="Top"
+			/>
+			<ScrollFrame ref={tableRef}>
 				<ColTable posts={posts} />
 			</ScrollFrame>
-			<div style={{ gridArea: 'table-before', textAlign: 'right' }}>
-				<Button
-					size="small"
-					variant="contained"
-					color="primary"
-					endIcon={<ArrowDown />}
-				>
-					End
-				</Button>
-			</div>
+			<ScrollButtonDiv
+				icon={<ArrowDown />}
+				gridArea="table-after"
+				onClick={() => {
+					tableRef.current && tableRef.current.scrollTo({ top: 100000 })
+				}}
+				text="End"
+			/>
 		</Wrapper>
 	)
 }
+
+const ScrollButtonDiv: React.FC<{
+	icon: React.ReactNode
+	onClick: () => void
+	text: string
+	gridArea: string
+}> = props => (
+	<div style={{ gridArea: props.gridArea, textAlign: 'right' }}>
+		<Button
+			size="small"
+			variant="contained"
+			color="primary"
+			endIcon={props.icon}
+			onClick={props.onClick}
+		>
+			{props.text}
+		</Button>
+	</div>
+)
 
 export default Home
