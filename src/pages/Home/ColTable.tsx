@@ -2,7 +2,6 @@ import React from 'react'
 import { Post } from 'chch/dist/types'
 import { createStyles, Theme, makeStyles } from '@material-ui/core/styles'
 import Paper from '@material-ui/core/Paper'
-import { FormGroup } from '@material-ui/core'
 import styled from 'styled-components'
 import _ from 'lodash'
 import randomColor from 'randomcolor'
@@ -78,8 +77,8 @@ function ColTable({ posts }: Props) {
 	const classes = useStyles({})
 
 	return (
-		<Paper className={classes.root}>
-			<Stripe>
+		<Stripe>
+			<Paper className={classes.root}>
 				{_.chunk(posts, 4).map((posts4, ri) => (
 					<WrapTable key={ri} col={4}>
 						{posts4.map(post => (
@@ -91,9 +90,8 @@ function ColTable({ posts }: Props) {
 						))}
 					</WrapTable>
 				))}
-			</Stripe>
-			<FormGroup row style={{ marginLeft: '12px' }} />
-		</Paper>
+			</Paper>
+		</Stripe>
 	)
 }
 

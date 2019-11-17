@@ -1,6 +1,8 @@
 import React, { useEffect } from 'react'
 import { Post } from 'chch/dist/types'
-import { TextField, IconButton } from '@material-ui/core'
+import { TextField, IconButton, Button } from '@material-ui/core'
+import ArrowUp from '@material-ui/icons/Publish'
+import ArrowDown from '@material-ui/icons/GetApp'
 import { ipcRenderer } from 'electron'
 import PlayIcon from '@material-ui/icons/PlayCircleFilledTwoTone'
 import StopIcon from '@material-ui/icons/PauseCircleFilledTwoTone'
@@ -10,13 +12,34 @@ import { useGlobalState } from '../../globalStore'
 import { setUrl } from '../../store/Setting/actions'
 import { getUrl, getSpeechConfig } from '../../store/Setting/selectors'
 import { speak, speakPatch } from '../../utils'
+import { theme } from '../../theme'
 import ColTable from './ColTable'
+
+const ScrollFrame = styled.div`
+	grid-area: table;
+	overflow-y: scroll;
+
+	&::-webkit-scrollbar {
+		width: 24px;
+	}
+
+	&::-webkit-scrollbar-track {
+		box-shadow: inset 0 0 6px rgba(0, 0, 0, 0.6);
+		background-color: ${theme.palette.background.paper};
+		border-radius: 8px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: ${theme.palette.primary.main};
+		border-radius: 8px;
+	}
+`
 
 const Wrapper = styled.div`
 	height: calc(100vh - 48px);
 	display: grid;
-	grid-template-rows: max-content 1fr;
-	grid-template-areas: 'control' 'table';
+	grid-template-rows: max-content max-content 1fr max-content;
+	grid-template-areas: 'control' 'table-after' 'table' 'table-before';
 `
 
 function Home() {
@@ -85,8 +108,28 @@ function Home() {
 					/>
 				</div>
 			</div>
-			<div style={{ gridArea: 'table', overflowY: 'scroll' }}>
+			<div style={{ gridArea: 'table-after', textAlign: 'right' }}>
+				<Button
+					size="small"
+					variant="contained"
+					color="primary"
+					endIcon={<ArrowUp />}
+				>
+					Top
+				</Button>
+			</div>
+			<ScrollFrame>
 				<ColTable posts={posts} />
+			</ScrollFrame>
+			<div style={{ gridArea: 'table-before', textAlign: 'right' }}>
+				<Button
+					size="small"
+					variant="contained"
+					color="primary"
+					endIcon={<ArrowDown />}
+				>
+					End
+				</Button>
 			</div>
 		</Wrapper>
 	)
