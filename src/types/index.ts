@@ -21,3 +21,8 @@ export type User = {
 	// ids: string[]
 	// posts: Post[]
 }
+
+export type SpeechConfig = {
+	volume: number
+	rate: number
+}

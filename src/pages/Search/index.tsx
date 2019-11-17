@@ -17,8 +17,9 @@ import { ipcRenderer } from 'electron'
 import _ from 'lodash'
 import useLocalStorage from 'react-use/lib/useLocalStorage'
 import { useSelector, useDispatch } from 'react-redux'
+import { useGlobalState } from '../../globalStore'
 import { getUrl } from '../../store/Setting/selectors'
-import { setUrl, setTab } from '../../store/Setting/actions'
+import { setUrl } from '../../store/Setting/actions'
 
 const Wrapper = styled.div`
 	padding: 12px;
@@ -26,6 +27,8 @@ const Wrapper = styled.div`
 
 const ThreadRow = ({ thread }: { thread: ThreadMin }) => {
 	const url = useSelector(getUrl)
+	const setTab = useGlobalState('tab')[1]
+	const setIsWatch = useGlobalState('isWatch')[1]
 	const dispatch = useDispatch()
 
 	return (
@@ -39,6 +42,7 @@ const ThreadRow = ({ thread }: { thread: ThreadMin }) => {
 					onClick={() => {
 						dispatch(setUrl(thread.url))
 						ipcRenderer.send('unwatch')
+						setIsWatch(false)
 						dispatch(setTab(0))
 					}}
 				>

@@ -16,18 +16,9 @@ import PlayIcon from '@material-ui/icons/PlayCircleFilledTwoTone'
 import StopIcon from '@material-ui/icons/PauseCircleFilledTwoTone'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
-import {
-	endWatch,
-	startWatch,
-	setUrl,
-	setVolume,
-	setRate,
-} from '../../store/Setting/actions'
-import {
-	getIsWatch,
-	getUrl,
-	getSpeechConfig,
-} from '../../store/Setting/selectors'
+import { useGlobalState } from '../../globalStore'
+import { setUrl, setVolume, setRate } from '../../store/Setting/actions'
+import { getUrl, getSpeechConfig } from '../../store/Setting/selectors'
 import { speak, speakPatch } from '../../utils'
 import ColTable from './ColTable'
 
@@ -40,7 +31,7 @@ const Wrapper = styled.div`
 
 function Home() {
 	const url = useSelector(getUrl)
-	const isWatch = useSelector(getIsWatch)
+	const [isWatch, setIsWatch] = useGlobalState('isWatch')
 	const speechConfig = useSelector(getSpeechConfig)
 	const [posts, setPosts] = React.useState<Post[]>([])
 	const dispatch = useDispatch()
@@ -77,7 +68,7 @@ function Home() {
 							color="secondary"
 							onClick={async () => {
 								ipcRenderer.send('unwatch')
-								dispatch(endWatch())
+								setIsWatch(false)
 							}}
 						>
 							<StopIcon fontSize="large" />
@@ -87,7 +78,7 @@ function Home() {
 							color={'primary'}
 							onClick={async () => {
 								ipcRenderer.send('watch', url)
-								dispatch(startWatch())
+								setIsWatch(true)
 								setPosts([])
 							}}
 						>
@@ -119,7 +110,7 @@ function Home() {
 								defaultValue={speechConfig.volume}
 								getAriaValueText={v => String(v)}
 								aria-labelledby="speech-config-volume"
-								onChange={(e, volume) => {
+								onChangeCommitted={(e, volume) => {
 									if (typeof volume === 'number') {
 										dispatch(setVolume(volume))
 									}
@@ -144,15 +135,15 @@ function Home() {
 								defaultValue={speechConfig.rate}
 								getAriaValueText={v => String(v)}
 								aria-labelledby="speech-config-rate"
-								onChange={(e, rate) => {
+								onChangeCommitted={(e, rate) => {
 									if (typeof rate === 'number') {
 										dispatch(setRate(rate))
 									}
 								}}
-								step={0.5}
+								step={0.1}
 								marks
-								min={0}
-								max={10.0}
+								min={0.5}
+								max={3.5}
 								valueLabelDisplay="auto"
 							/>
 						</Grid>

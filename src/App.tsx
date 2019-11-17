@@ -10,16 +10,14 @@ import {
 } from '@material-ui/core'
 import styled from 'styled-components'
 import { ThemeProvider } from '@material-ui/styles'
-import { Provider, useSelector, useDispatch } from 'react-redux'
+import { Provider } from 'react-redux'
 import { PersistGate } from 'redux-persist/integration/react'
 import Home from './pages/Home'
 import Config from './pages/Config'
 import Search from './pages/Search'
 import configureStore from './store'
 import { theme } from './theme'
-import { State } from './types'
-import { getTab } from './store/Setting/selectors'
-import { setTab } from './store/Setting/actions'
+import { GlobalStateProvider, useGlobalState } from './globalStore'
 
 const { store, persistor } = configureStore()
 
@@ -71,13 +69,12 @@ const MainGrid = styled.div`
 
 function Main() {
 	const classes = useStyles()
-	const activeTab = useSelector(getTab)
-	const dispatch = useDispatch()
+	const [activeTab, setTab] = useGlobalState('tab')
 
 	return (
 		<MainGrid>
 			<div className={classes.item}>
-				<HeadTabs value={activeTab} onChange={(e, v) => dispatch(setTab(v))}>
+				<HeadTabs value={activeTab} onChange={(e, v) => setTab(v)}>
 					<HeadTab label="Home" />
 					<HeadTab label="Search" />
 					<HeadTab label="Config" />
@@ -102,10 +99,12 @@ function App() {
 	return (
 		<Provider store={store}>
 			<PersistGate loading={null} persistor={persistor}>
-				<ThemeProvider theme={theme}>
-					<CssBaseline />
-					<Main />
-				</ThemeProvider>
+				<GlobalStateProvider>
+					<ThemeProvider theme={theme}>
+						<CssBaseline />
+						<Main />
+					</ThemeProvider>
+				</GlobalStateProvider>
 			</PersistGate>
 		</Provider>
 	)
