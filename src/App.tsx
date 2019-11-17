@@ -7,29 +7,21 @@ import {
 	Theme,
 	withStyles,
 	CssBaseline,
-	createMuiTheme,
 } from '@material-ui/core'
-
 import styled from 'styled-components'
 import { ThemeProvider } from '@material-ui/styles'
+import { Provider, useSelector, useDispatch } from 'react-redux'
+import { PersistGate } from 'redux-persist/integration/react'
 import Home from './pages/Home'
 import Config from './pages/Config'
 import Search from './pages/Search'
-import { GlobalStateProvider, useGlobalState } from './store'
+import configureStore from './store'
+import { theme } from './theme'
+import { State } from './types'
+import { getTab } from './store/Setting/selectors'
+import { setTab } from './store/Setting/actions'
 
-const theme = createMuiTheme({
-	palette: {
-		type: 'dark',
-	},
-	props: {
-		MuiTextField: {
-			variant: 'outlined',
-		},
-		MuiButton: {
-			variant: 'outlined',
-		},
-	},
-})
+const { store, persistor } = configureStore()
 
 type StyledTabsProps = {
 	value: number
@@ -79,12 +71,13 @@ const MainGrid = styled.div`
 
 function Main() {
 	const classes = useStyles()
-	const [activeTab, setActiveTab] = useGlobalState('activeTab')
+	const activeTab = useSelector(getTab)
+	const dispatch = useDispatch()
 
 	return (
 		<MainGrid>
 			<div className={classes.item}>
-				<HeadTabs value={activeTab} onChange={(e, v) => setActiveTab(v)}>
+				<HeadTabs value={activeTab} onChange={(e, v) => dispatch(setTab(v))}>
 					<HeadTab label="Home" />
 					<HeadTab label="Search" />
 					<HeadTab label="Config" />
@@ -107,12 +100,14 @@ function Main() {
 
 function App() {
 	return (
-		<GlobalStateProvider>
-			<ThemeProvider theme={theme}>
-				<CssBaseline />
-				<Main />
-			</ThemeProvider>
-		</GlobalStateProvider>
+		<Provider store={store}>
+			<PersistGate loading={null} persistor={persistor}>
+				<ThemeProvider theme={theme}>
+					<CssBaseline />
+					<Main />
+				</ThemeProvider>
+			</PersistGate>
+		</Provider>
 	)
 }
 

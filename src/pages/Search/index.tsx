@@ -16,16 +16,17 @@ import { ThreadMin } from 'chch/dist/types'
 import { ipcRenderer } from 'electron'
 import _ from 'lodash'
 import useLocalStorage from 'react-use/lib/useLocalStorage'
-import { useGlobalState } from '../../store'
+import { useSelector, useDispatch } from 'react-redux'
+import { getUrl } from '../../store/Setting/selectors'
+import { setUrl, setTab } from '../../store/Setting/actions'
 
 const Wrapper = styled.div`
 	padding: 12px;
 `
 
 const ThreadRow = ({ thread }: { thread: ThreadMin }) => {
-	const [url, setUrl] = useGlobalState('url')
-	const setActiveTab = useGlobalState('activeTab')[1]
-	const setIsWatch = useGlobalState('isWatch')[1]
+	const url = useSelector(getUrl)
+	const dispatch = useDispatch()
 
 	return (
 		<TableRow>
@@ -36,10 +37,9 @@ const ThreadRow = ({ thread }: { thread: ThreadMin }) => {
 					disabled={thread.url === url}
 					size="small"
 					onClick={() => {
-						setUrl(thread.url)
-						setIsWatch(false)
+						dispatch(setUrl(thread.url))
 						ipcRenderer.send('unwatch')
-						setActiveTab(0)
+						dispatch(setTab(0))
 					}}
 				>
 					<PlayIcon />
@@ -163,3 +163,5 @@ function Search() {
 }
 
 export default Search
+
+44

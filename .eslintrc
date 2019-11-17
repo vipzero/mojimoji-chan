@@ -6,6 +6,7 @@
 	},
 	"rules": {
 		"@typescript-eslint/explicit-function-return-type": 0,
-		"import/no-extraneous-dependencies": 0
+		"import/no-extraneous-dependencies": 0,
+		"import/max-dependencies": 0
 	}
 }

@@ -1,48 +1,45 @@
-import { createStore } from 'react-hooks-global-state'
-import _ from 'lodash'
+import { applyMiddleware, compose, createStore } from 'redux'
+import { createMigrate, persistReducer, persistStore } from 'redux-persist'
+import thunk, { ThunkMiddleware } from 'redux-thunk'
 
-const persistenceKey = 'mojimoji_store'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web and AsyncStorage for react-native
+import { AnyAction } from 'typescript-fsa'
+import reducer from './reducer'
+import { State } from './types'
 
-export type SpeechConfig = {
-	volume: number
-	rate: number
+const migrations = {}
+
+type StoreKeys = keyof State
+const whitelist: StoreKeys[] = ['Setting']
+
+const persistConfig = {
+	key: 'root',
+	version: 1,
+	storage,
+	whitelist,
+	migrate: createMigrate(migrations, { debug: false }),
 }
 
-export type State = {
-	url: string
-	activeTab: number
-	isWatch: boolean
-	speechConfig: {
-		volume: number
-		rate: number
+export default () => {
+	const middleware = [thunk as ThunkMiddleware<State, AnyAction>]
+	const enhancers = []
+
+	// eslint-disable-next-line @typescript-eslint/no-explicit-any
+	const devtool = (window as any).__REDUX_DEVTOOLS_EXTENSION__
+
+	if (process.env.NODE_ENV === 'development') {
+		if (typeof devtool === 'function') {
+			// @ts-ignore
+			enhancers.push(devtool())
+		}
 	}
-}
 
-const firstState: State = {
-	url: '',
-	activeTab: 0,
-	isWatch: false,
-	speechConfig: {
-		volume: 0.5,
-		rate: 5,
-	},
-}
-const initialStringFromStorage = localStorage.getItem(persistenceKey)
-const initialState = _.merge(
-	firstState,
-	initialStringFromStorage === null ? {} : JSON.parse(initialStringFromStorage)
-)
+	const composer = compose(applyMiddleware(...middleware), ...enhancers)
 
-const persistKeys = ['url', 'speechConfig']
-const persistentReducer = state => {
-	localStorage.setItem(
-		persistenceKey,
-		JSON.stringify(_.pick(state, persistKeys))
-	)
-	return state
-}
+	const persistedReducer = persistReducer(persistConfig, reducer)
+	// @ts-ignore
+	const store = createStore(persistedReducer, composer)
+	const persistor = persistStore(store)
 
-export const { GlobalStateProvider, dispatch, useGlobalState } = createStore(
-	persistentReducer,
-	initialState
-)
+	return { store, persistor }
+}

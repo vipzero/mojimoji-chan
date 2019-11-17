@@ -15,8 +15,19 @@ import SpeedUp from '@material-ui/icons/Flight'
 import PlayIcon from '@material-ui/icons/PlayCircleFilledTwoTone'
 import StopIcon from '@material-ui/icons/PauseCircleFilledTwoTone'
 import styled from 'styled-components'
-
-import { useGlobalState } from '../../store'
+import { useSelector, useDispatch } from 'react-redux'
+import {
+	endWatch,
+	startWatch,
+	setUrl,
+	setVolume,
+	setRate,
+} from '../../store/Setting/actions'
+import {
+	getIsWatch,
+	getUrl,
+	getSpeechConfig,
+} from '../../store/Setting/selectors'
 import { speak, speakPatch } from '../../utils'
 import ColTable from './ColTable'
 
@@ -28,13 +39,11 @@ const Wrapper = styled.div`
 `
 
 function Home() {
-	console.log(null == 0)
-
-	const [isWatch, setIsWatch] = useGlobalState('isWatch')
+	const url = useSelector(getUrl)
+	const isWatch = useSelector(getIsWatch)
+	const speechConfig = useSelector(getSpeechConfig)
 	const [posts, setPosts] = React.useState<Post[]>([])
-
-	const [speechConfig, setSpeechConfig] = useGlobalState('speechConfig')
-	const [url, setUrl] = useGlobalState('url')
+	const dispatch = useDispatch()
 
 	useEffect(() => {
 		console.log('effect')
@@ -51,7 +60,7 @@ function Home() {
 			console.log('unmount')
 			ipcRenderer.removeAllListeners('posts')
 		}
-	}, [speechConfig])
+	}, [speechConfig.rate, speechConfig.volume])
 
 	return (
 		<Wrapper>
@@ -68,7 +77,7 @@ function Home() {
 							color="secondary"
 							onClick={async () => {
 								ipcRenderer.send('unwatch')
-								setIsWatch(false)
+								dispatch(endWatch())
 							}}
 						>
 							<StopIcon fontSize="large" />
@@ -78,7 +87,7 @@ function Home() {
 							color={'primary'}
 							onClick={async () => {
 								ipcRenderer.send('watch', url)
-								setIsWatch(true)
+								dispatch(startWatch())
 								setPosts([])
 							}}
 						>
@@ -91,7 +100,7 @@ function Home() {
 						disabled={isWatch}
 						value={url}
 						fullWidth
-						onChange={v => setUrl(v.target.value)}
+						onChange={v => dispatch(setUrl(v.target.value))}
 					/>
 				</div>
 				<div
@@ -112,7 +121,7 @@ function Home() {
 								aria-labelledby="speech-config-volume"
 								onChange={(e, volume) => {
 									if (typeof volume === 'number') {
-										setSpeechConfig({ ...speechConfig, volume })
+										dispatch(setVolume(volume))
 									}
 								}}
 								step={0.1}
@@ -137,7 +146,7 @@ function Home() {
 								aria-labelledby="speech-config-rate"
 								onChange={(e, rate) => {
 									if (typeof rate === 'number') {
-										setSpeechConfig({ ...speechConfig, rate })
+										dispatch(setRate(rate))
 									}
 								}}
 								step={0.5}
