@@ -1,7 +1,7 @@
 {
 	"name": "mojimoji-chan",
 	"description": "5ch読み上げデスクトップアプリ",
-	"version": "1.0.2",
+	"version": "1.2.0",
 	"author": "vipzero",
 	"build": {
 		"productName": "MojimojiChan",
