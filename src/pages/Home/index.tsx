@@ -1,23 +1,13 @@
 import React, { useEffect } from 'react'
 import { Post } from 'chch/dist/types'
-import {
-	Typography,
-	TextField,
-	Slider,
-	Grid,
-	IconButton,
-} from '@material-ui/core'
+import { TextField, IconButton } from '@material-ui/core'
 import { ipcRenderer } from 'electron'
-import VolumeDown from '@material-ui/icons/VolumeDown'
-import VolumeUp from '@material-ui/icons/VolumeUp'
-import SpeedDown from '@material-ui/icons/Hotel'
-import SpeedUp from '@material-ui/icons/Flight'
 import PlayIcon from '@material-ui/icons/PlayCircleFilledTwoTone'
 import StopIcon from '@material-ui/icons/PauseCircleFilledTwoTone'
 import styled from 'styled-components'
 import { useSelector, useDispatch } from 'react-redux'
 import { useGlobalState } from '../../globalStore'
-import { setUrl, setVolume, setRate } from '../../store/Setting/actions'
+import { setUrl } from '../../store/Setting/actions'
 import { getUrl, getSpeechConfig } from '../../store/Setting/selectors'
 import { speak, speakPatch } from '../../utils'
 import ColTable from './ColTable'
@@ -94,69 +84,6 @@ function Home() {
 						onChange={v => dispatch(setUrl(v.target.value))}
 					/>
 				</div>
-				<div
-					style={{
-						display: 'grid',
-						gridTemplateColumns: '1fr 1fr 2fr',
-						gridGap: '8px',
-					}}
-				>
-					<Grid container spacing={2}>
-						<Grid item>
-							<VolumeDown />
-						</Grid>
-						<Grid item xs>
-							<Slider
-								defaultValue={speechConfig.volume}
-								getAriaValueText={v => String(v)}
-								aria-labelledby="speech-config-volume"
-								onChangeCommitted={(e, volume) => {
-									if (typeof volume === 'number') {
-										dispatch(setVolume(volume))
-									}
-								}}
-								step={0.1}
-								marks
-								min={0}
-								max={1.0}
-								valueLabelDisplay="auto"
-							/>
-						</Grid>
-						<Grid item>
-							<VolumeUp />
-						</Grid>
-					</Grid>
-					<Grid container spacing={2}>
-						<Grid item>
-							<SpeedDown />
-						</Grid>
-						<Grid item xs>
-							<Slider
-								defaultValue={speechConfig.rate}
-								getAriaValueText={v => String(v)}
-								aria-labelledby="speech-config-rate"
-								onChangeCommitted={(e, rate) => {
-									if (typeof rate === 'number') {
-										dispatch(setRate(rate))
-									}
-								}}
-								step={0.1}
-								marks
-								min={0.5}
-								max={3.5}
-								valueLabelDisplay="auto"
-							/>
-						</Grid>
-						<Grid item>
-							<SpeedUp />
-						</Grid>
-					</Grid>
-				</div>
-				<br />
-				<Typography variant="caption">
-					(対応確認済み: VIP,パー速VIP) (収集時間: 1分おき) (読み上げ省略:
-					40文字以降)
-				</Typography>
 			</div>
 			<div style={{ gridArea: 'table', overflowY: 'scroll' }}>
 				<ColTable posts={posts} />
