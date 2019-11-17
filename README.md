@@ -3,8 +3,8 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 
-<a href="https://github.com/sindresorhus/caprine/releases/latest">
-	<img src="screenshot/ss.png" width="846">
+<a href="https://github.com/vipzero/mojimoji-chan/releases/latest">
+	<img src="screenshot/preview.gif" width="846">
 </a>
 
 
