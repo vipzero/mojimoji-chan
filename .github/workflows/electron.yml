@@ -35,11 +35,8 @@ jobs:
           yarn run dist
       - name: Cleanup artifacts
         run: |
-          mkdir artifacts 2>/dev/null
-          mv dist/*.exe artifacts 2>/dev/null
-          mv dist/*.deb artifacts 2>/dev/null
-          mv dist/*.AppImage artifacts 2>/dev/null
-          mv dist/*.dmg artifacts 2>/dev/null
+          mkdir artifacts || true
+          mv dist/*.{exe,deb,AppImage,dmg} artifacts || true
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
