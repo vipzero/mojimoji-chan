@@ -64,7 +64,6 @@
 		"jest": "^24.9.0",
 		"lint-staged": "^9.4.2",
 		"react-docgen-typescript-loader": "^3.3.0",
-		"rimraf": "^3.0.0",
 		"spawn-sync": "^2.0.0",
 		"ts-jest": "^24.1.0",
 		"ts-loader": "^6.2.1",
