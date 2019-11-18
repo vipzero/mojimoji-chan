@@ -36,7 +36,7 @@ jobs:
       - name: Cleanup artifacts
         run: |
           mkdir artifacts
-          mv dist/{*.exe,*.deb|*.AppImage|*.dmg) artifacts
+          mv dist/{*.exe,*.deb|*.AppImage|*.dmg} artifacts
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
