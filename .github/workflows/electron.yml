@@ -34,9 +34,15 @@ jobs:
         run: |
           yarn run dist
       - name: Cleanup artifacts
+        if: matrix.os != 'windows-latest'
         run: |
           mkdir artifacts || true
-          mv dist/*.{exe,deb,AppImage,dmg} artifacts || true
+          mv "dist/(*.exe|*.deb|*.AppImage|*.dmg)" artifacts || true
+      - name: Cleanup artifacts Win
+        if: matrix.os == 'windows-latest'
+        run: |
+          mkdir artifacts --Force
+          mv dist/*.exe artifacts
       - name: Upload artifacts
         uses: actions/upload-artifact@v1
         with:
