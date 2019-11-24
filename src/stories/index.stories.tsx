@@ -2,12 +2,12 @@ import React from 'react'
 import { Post } from 'chch/dist/types'
 import { CssBaseline } from '@material-ui/core'
 import randomColor from 'randomcolor'
+import { storiesOf } from '@storybook/react'
+import { muiTheme } from 'storybook-addon-material-ui'
 import PostCard from '../pages/Home/PostCard'
 import { User } from '../types'
-
-export default {
-	title: 'MojiMojiChan',
-}
+import TimelineBar from '../pages/Home/TimelineBar'
+import { theme } from '../theme'
 
 const user: User = {
 	id: 'Vu+pao9Sa',
@@ -48,33 +48,37 @@ const postWacchoi: Post = {
 	},
 }
 
-export const toStorybook = () => (
-	<>
-		<CssBaseline />
-		<h3>Resonsive</h3>
-		<div
-			style={{
-				display: 'grid',
-				gridTemplateColumns: '1fr 2fr 3fr',
-				justifyContent: 'space-evenly',
-				gridGap: '12px',
-			}}
-		>
-			<PostCard user={user} post={postWacchoi} />
-			<PostCard user={user} post={postWacchoi} />
-			<PostCard user={user} post={postWacchoi} />
-		</div>
-		{[200, 350, 500].map(width => (
-			<div key={width}>
-				<h3>{width}px</h3>
-				<div style={{ width: `${width}px` }}>
-					<PostCard user={user} post={post} />
-				</div>
+storiesOf('Home', module)
+	.addDecorator(muiTheme([theme]))
+	.add('PostCard', () => (
+		<>
+			<CssBaseline />
+			<h3>Resonsive</h3>
+			<div
+				style={{
+					display: 'grid',
+					gridTemplateColumns: '1fr 2fr 3fr',
+					justifyContent: 'space-evenly',
+					gridGap: '12px',
+				}}
+			>
+				<PostCard user={user} post={postWacchoi} />
+				<PostCard user={user} post={postWacchoi} />
+				<PostCard user={user} post={postWacchoi} />
 			</div>
-		))}
-	</>
-)
-
-toStorybook.story = {
-	name: 'PostCard',
-}
+			{[200, 350, 500].map(width => (
+				<div key={width}>
+					<h3>{width}px</h3>
+					<div style={{ width: `${width}px` }}>
+						<PostCard user={user} post={post} />
+					</div>
+				</div>
+			))}
+		</>
+	))
+	.add('TimelineBar', () => (
+		<>
+			<CssBaseline />
+			<TimelineBar />
+		</>
+	))
