@@ -1,7 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 
-type Props = {}
+type Props = {
+	postTimes: number[]
+	fetchTimes: number[]
+	nextFetchTime: number
+}
 
 const Wrapper = styled.div`
 	width: 100%;

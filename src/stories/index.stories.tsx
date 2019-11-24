@@ -4,6 +4,7 @@ import { CssBaseline } from '@material-ui/core'
 import randomColor from 'randomcolor'
 import { storiesOf } from '@storybook/react'
 import { muiTheme } from 'storybook-addon-material-ui'
+import _ from 'lodash'
 import PostCard from '../pages/Home/PostCard'
 import { User } from '../types'
 import TimelineBar from '../pages/Home/TimelineBar'
@@ -48,6 +49,12 @@ const postWacchoi: Post = {
 	},
 }
 
+function makeDummies(n: number): number[] {
+	const times = _.sortBy(_.range(n).map(() => _.random(24 * 60 * 60 * 1000)))
+
+	return times
+}
+
 storiesOf('Home', module)
 	.addDecorator(muiTheme([theme]))
 	.add('PostCard', () => (
@@ -79,6 +86,12 @@ storiesOf('Home', module)
 	.add('TimelineBar', () => (
 		<>
 			<CssBaseline />
-			<TimelineBar />
+			<div style={{ width: '100vw', padding: '2vw' }}>
+				<TimelineBar
+					postTimes={makeDummies(100)}
+					fetchTimes={makeDummies(100)}
+					nextFetchTime={1000 * 10}
+				/>
+			</div>
 		</>
 	))
