@@ -66,20 +66,22 @@ function TimelineBar({
 		},
 	]
 	const memories: Memory[] = [
-		...mediumLines.map(scale => ({
-			x: (scale.time - startTime) / range,
-			text: String(scale.num),
-		})),
 		...bigLines.map(scale => ({
 			x: (scale.time - startTime) / range,
+			h: 1.0,
 			text: String(scale.num),
+		})),
+		...mediumLines.map(scale => ({
+			x: (scale.time - startTime) / range,
+			h: 0.5,
+			text: '',
 		})),
 	]
 
 	return (
 		<Wrapper>
 			<TimelineDiagram blocks={blocks} lines={lines} />
-			{/* <TimelineFooter memories={memories}></TimelineFooter> */}
+			<TimelineFooter memories={memories}></TimelineFooter>
 		</Wrapper>
 	)
 }

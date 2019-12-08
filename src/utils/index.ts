@@ -36,12 +36,12 @@ export const timeScaleToResolution = (
 	const hour6Scale: Scale = {
 		unit: 'HH',
 		scale: 3 * 60 * min,
-		division: time => (time / hour) % 24,
+		division: time => (time / hour + 9) % 24,
 	}
 	const hourScale: Scale = {
 		unit: 'HH',
 		scale: 60 * 60 * 1000,
-		division: time => (time / hour) % 24,
+		division: time => (time / hour + 9) % 24,
 	}
 	const minute15Scale: Scale = {
 		unit: 'mm',
@@ -77,7 +77,7 @@ export const timeScaleToResolution = (
 	]
 
 	for (const [big, medium, small] of scaleSets) {
-		if (big.scale >= range) {
+		if (range >= big.scale) {
 			return { big, medium, small }
 		}
 	}

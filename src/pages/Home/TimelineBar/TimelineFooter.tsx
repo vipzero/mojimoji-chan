@@ -1,7 +1,7 @@
 import React from 'react'
 import styled from 'styled-components'
 
-export type Memory = { x: number; text: string }
+export type Memory = { x: number; h: number; text: string }
 
 const Wrapper = styled.div`
 	width: 100%;
@@ -10,27 +10,15 @@ const Wrapper = styled.div`
 	background: #1b1e4a;
 `
 
-const MemoryLine = styled.div<{ x: number }>`
+const MemoryLine = styled.div`
 	position: absolute;
-	left: ${p => p.x * 100}%;
-	background-color: ${p => p.color};
-	margin-top: 5px;
-	width: 10px;
-	height: 10px;
-	border-radius: 5px;
-	min-height: 10px;
-	display: block;
-`
-
-const Label = styled.div<{ x: number }>`
-	position: absolute;
-	left: ${p => p.x * 100}%;
 	background-color: ${p => p.color};
 	width: 2px;
-	height: 100%;
 	border-radius: 0;
 	min-height: 10px;
 	display: block;
+	border-left: solid white 1px;
+	padding-left: 4px;
 `
 
 type Props = {
@@ -40,13 +28,15 @@ type Props = {
 export function TimelineFooter({ memories }: Props) {
 	return (
 		<Wrapper>
-			{memories.map((block, bi) => (
-				<MemoryLine key={bi} x={block.x}>
-					{memories.map((memory, i) => (
-						<Label key={i} x={memory.x}>
-							{memory.text}
-						</Label>
-					))}
+			{memories.map((memory, i) => (
+				<MemoryLine
+					key={i}
+					style={{
+						left: `${memory.x * 100}%`,
+						height: `${memory.h * 100}%`,
+					}}
+				>
+					{memory.text}
 				</MemoryLine>
 			))}
 		</Wrapper>
