@@ -49,8 +49,8 @@ const postWacchoi: Post = {
 	},
 }
 
-function makeDummies(n: number): number[] {
-	const times = _.sortBy(_.range(n).map(() => _.random(24 * 60 * 60 * 1000)))
+function makeDummies(n: number, h = 1): number[] {
+	const times = _.sortBy(_.range(n).map(() => _.random(h * 60 * 60 * 1000)))
 
 	return times
 }
@@ -90,7 +90,9 @@ storiesOf('Home', module)
 				<TimelineBar
 					postTimes={makeDummies(100)}
 					fetchTimes={makeDummies(100)}
-					nextFetchTime={1000 * 10}
+					startTime={0}
+					currentTime={1 * 60 * 60 * 1000}
+					nextFetchTime={1 * 60 * 60 * 1000 + 5 * 60 * 1000} // 5 min after
 				/>
 			</div>
 		</>
