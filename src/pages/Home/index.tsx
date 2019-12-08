@@ -14,6 +14,7 @@ import { getUrl, getSpeechConfig } from '../../store/Setting/selectors'
 import { speak, speakPatch } from '../../utils'
 import { theme } from '../../theme'
 import ColTable from './ColTable'
+import { TimelineBarThread, Timeline } from './TimelineBar'
 
 const ScrollFrame = styled.div`
 	grid-area: table;
@@ -38,8 +39,8 @@ const ScrollFrame = styled.div`
 const Wrapper = styled.div`
 	height: calc(100vh - 48px);
 	display: grid;
-	grid-template-rows: max-content max-content 1fr max-content;
-	grid-template-areas: 'control' 'table-before' 'table' 'table-after';
+	grid-template-rows: max-content max-content 1fr max-content max-content;
+	grid-template-areas: 'control' 'table-before' 'table' 'table-after' 'timeline';
 `
 
 function Home() {
@@ -47,6 +48,7 @@ function Home() {
 	const [isWatch, setIsWatch] = useGlobalState('isWatch')
 	const speechConfig = useSelector(getSpeechConfig)
 	const [posts, setPosts] = React.useState<Post[]>([])
+	const [timeline, setTimeline] = React.useState<Timeline | null>(null)
 	const dispatch = useDispatch()
 	const tableRef = useRef<HTMLDivElement>(null)
 
@@ -54,7 +56,15 @@ function Home() {
 		console.log('effect')
 		ipcRenderer.removeAllListeners('posts')
 		ipcRenderer.on('posts', (event, posts: Post[], nth: number) => {
+			const postTimes = posts.map(p => p.timestamp)
+			const fetchTime = Date.now()
+
 			setPosts(s => s.concat(posts))
+			setTimeline(s => ({
+				postTimes: (s === null ? [] : s.postTimes).concat(postTimes),
+				fetchTimes: (s === null ? [] : s.fetchTimes).concat([fetchTime]),
+				nextFetchTime: 0,
+			}))
 			if (nth === 0) {
 				// 初期値は最後の2レスだけ読み取る
 				posts.splice(0, posts.length - 2)
@@ -130,6 +140,9 @@ function Home() {
 				}}
 				text="End"
 			/>
+			<div style={{ gridArea: 'timeline' }}>
+				<TimelineBarThread timeline={timeline} />
+			</div>
 		</Wrapper>
 	)
 }

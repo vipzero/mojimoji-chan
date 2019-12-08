@@ -10,10 +10,8 @@ const Wrapper = styled.div`
 	background: #1b1e4a;
 `
 
-const Block = styled.div<{ x: number; color: string }>`
+const Block = styled.div`
 	position: absolute;
-	left: ${p => p.x * 100}%;
-	background-color: ${p => p.color};
 	margin-top: 5px;
 	width: 10px;
 	height: 10px;
@@ -22,10 +20,8 @@ const Block = styled.div<{ x: number; color: string }>`
 	display: block;
 `
 
-const Line = styled.div<{ x: number; color: string }>`
+const Line = styled.div`
 	position: absolute;
-	left: ${p => p.x * 100}%;
-	background-color: ${p => p.color};
 	width: 2px;
 	height: 100%;
 	border-radius: 0;
@@ -42,10 +38,22 @@ export function TimelineDiagram({ blocks, lines }: Props) {
 	return (
 		<Wrapper>
 			{blocks.map((block, bi) => (
-				<Block key={bi} x={block.x} color={block.color} />
+				<Block
+					key={bi}
+					style={{
+						left: `${block.x * 100}%`,
+						backgroundColor: block.color,
+					}}
+				/>
 			))}
 			{lines.map((block, bi) => (
-				<Line key={bi} x={block.x} color={block.color} />
+				<Line
+					key={bi}
+					style={{
+						left: `${block.x * 100}%`,
+						backgroundColor: block.color,
+					}}
+				/>
 			))}
 		</Wrapper>
 	)

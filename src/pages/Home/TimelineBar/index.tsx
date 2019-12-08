@@ -1,9 +1,8 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { getSeparatorTimes } from '../../../utils'
 import { Block, TimelineDiagram } from './TimelineDiagram'
-import { Memory , TimelineFooter } from './TimelineFooter'
-
+import { Memory, TimelineFooter } from './TimelineFooter'
 
 const Wrapper = styled.div`
 	width: 100%;
@@ -45,12 +44,12 @@ function TimelineBar({
 		startTime + range
 	)
 	const lines: Block[] = [
-		...smallLines.map(scale => {
-			return {
-				x: (scale.time - startTime) / range,
-				color: '#333',
-			}
-		}),
+		// ...smallLines.map(scale => {
+		// 	return {
+		// 		x: (scale.time - startTime) / range,
+		// 		color: '#333',
+		// 	}
+		// }),
 		...fetchTimes.map(time => {
 			return {
 				x: (time - startTime) / range,
@@ -80,8 +79,52 @@ function TimelineBar({
 	return (
 		<Wrapper>
 			<TimelineDiagram blocks={blocks} lines={lines} />
-			<TimelineFooter memories={memories}></TimelineFooter>
+			{/* <TimelineFooter memories={memories}></TimelineFooter> */}
 		</Wrapper>
+	)
+}
+
+export type Timeline = {
+	nextFetchTime: number
+	postTimes: number[]
+	fetchTimes: number[]
+}
+
+export function TimelineBarThread({ timeline }: { timeline: Timeline | null }) {
+	const [currentTime, setCurrentTime] = useState<number>(Date.now())
+
+	useEffect(() => {
+		const interval = setInterval(() => {
+			setCurrentTime(Date.now())
+		}, 1000)
+
+		return () => {
+			clearInterval(interval)
+		}
+	}, [])
+
+	if (timeline === null) {
+		return (
+			<TimelineBar
+				currentTime={0}
+				startTime={0}
+				nextFetchTime={10}
+				postTimes={[]}
+				fetchTimes={[]}
+			/>
+		)
+	}
+
+	const startTime = timeline.postTimes[0] || currentTime - 1000
+
+	return (
+		<TimelineBar
+			currentTime={currentTime}
+			startTime={startTime}
+			nextFetchTime={timeline.nextFetchTime}
+			postTimes={timeline.postTimes}
+			fetchTimes={timeline.fetchTimes}
+		/>
 	)
 }
 

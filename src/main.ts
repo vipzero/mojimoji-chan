@@ -1,5 +1,8 @@
 import { client } from 'electron-connect'
 import { app, BrowserWindow, ipcMain } from 'electron'
+import installExtension, {
+	REACT_DEVELOPER_TOOLS,
+} from 'electron-devtools-installer'
 
 import { watchSmart } from 'chch/dist/watch'
 import _ from 'lodash'
@@ -10,6 +13,13 @@ let mainWindow: Electron.BrowserWindow | null
 const width = 1500
 
 function createWindow() {
+	installExtension(REACT_DEVELOPER_TOOLS, true)
+		.then(name => {
+			console.log(`Added Extension:  ${name}`)
+		})
+		.catch(err => {
+			console.log('An error occurred: ', err)
+		})
 	// Create the browser window.
 	mainWindow = new BrowserWindow({
 		frame: true,
