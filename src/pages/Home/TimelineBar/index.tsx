@@ -2,11 +2,12 @@ import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
 import { getSeparatorTimes } from '../../../utils'
 import { Block, TimelineDiagram } from './TimelineDiagram'
-import { Memory, TimelineFooter } from './TimelineFooter'
+import { Memory, TimelineRuler } from './TimelineRuler'
+import { TimelineFooter } from './TimelineFooter'
 
 const Wrapper = styled.div`
 	width: 100%;
-	height: 40px;
+	height: 60px;
 `
 
 type Props = {
@@ -81,7 +82,16 @@ function TimelineBar({
 	return (
 		<Wrapper>
 			<TimelineDiagram blocks={blocks} lines={lines} />
-			<TimelineFooter memories={memories}></TimelineFooter>
+			<TimelineRuler memories={memories}></TimelineRuler>
+			<TimelineFooter
+				startTime={startTime}
+				nextFetchTime={nextFetchTime}
+				messageCount={postTimes.length}
+				lastFetchTime={fetchTimes[fetchTimes.length - 1] || 0}
+				messageCount15min={
+					postTimes.filter(p => p > currentTime - 15 * 60 * 1000).length
+				}
+			></TimelineFooter>
 		</Wrapper>
 	)
 }

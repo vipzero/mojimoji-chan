@@ -87,14 +87,14 @@ ipcMain.on('watch', async (event, url) => {
 	// const data = fs.readFileSync('out.txt', 'utf-8')
 	// const posts: Post[] = JSON.parse(data)
 	// event.sender.send('posts', posts, 0)
-	state.watcher = await watchSmart(url, ({ newPosts, nthCall }) => {
+	state.watcher = await watchSmart(url, ({ newPosts, nthCall, nextCallMs }) => {
 		const lastPost = _.last(newPosts)
 
 		if (lastPost && state.watcher && lastPost.number >= 1000) {
 			state.watcher.stop()
 		}
 
-		event.sender.send('posts', newPosts, nthCall)
+		event.sender.send('posts', newPosts, nthCall, nextCallMs)
 	})
 	state.watcher.start()
 })

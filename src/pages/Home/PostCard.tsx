@@ -2,13 +2,9 @@ import React from 'react'
 import { Post } from 'chch/dist/types'
 import { Typography } from '@material-ui/core'
 import styled from 'styled-components'
-import dayjs from 'dayjs'
-// eslint-disable-next-line import/no-unassigned-import
-import 'dayjs/locale/ja'
 
+import { timeFormatComma } from '../../utils'
 import { User } from '../../types'
-
-dayjs.locale('ja')
 
 const col = 4
 const CardWrap = styled.div<{ num: number }>`
@@ -67,8 +63,6 @@ const toIconUrl = (id: string) =>
 const toColorUrl = (id: string) =>
 	`https://avatars.dicebear.com/v2/initials/${id}.svg`
 
-const toTimeLabel = (ts: number) => dayjs(ts).format('HH:mm:ss.SSS')
-
 type Props = {
 	post: Post
 	user: User
@@ -93,7 +87,7 @@ function PostCard({ post, user }: Props) {
 					<Name variant="body2">{toName(post)}</Name>
 				</div>
 				<Typography style={{ gridArea: 'time' }} variant="body2">
-					{toTimeLabel(post.timestamp)}
+					{timeFormatComma(post.timestamp)}
 				</Typography>
 			</Header>
 			<Body>

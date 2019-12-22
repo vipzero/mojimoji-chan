@@ -1,44 +1,62 @@
 import React from 'react'
 import styled from 'styled-components'
+import { Typography } from '@material-ui/core'
+import { timeFormat } from '../../../utils'
 
 export type Memory = { x: number; h: number; text: string }
 
 const Wrapper = styled.div`
 	width: 100%;
-	position: relative;
+	display: flex;
 	height: 20px;
 	background: #1b1e4a;
+	justify-content: space-between;
 `
 
-const MemoryLine = styled.div`
-	position: absolute;
-	background-color: ${p => p.color};
-	width: 2px;
-	border-radius: 0;
-	min-height: 10px;
-	display: block;
-	border-left: solid white 1px;
-	padding-left: 4px;
+const LeftFoot = styled.div`
+	display: flex;
+	background: #1b1e4a;
+	justify-content: space-between;
+	> p {
+		padding-left: 12px;
+	}
+`
+
+const RightFoot = styled.div`
+	display: flex;
+	background: #1b1e4a;
+	justify-content: space-between;
+	> p {
+		padding-left: 12px;
+	}
 `
 
 type Props = {
-	memories: Memory[]
+	messageCount: number
+	startTime: number
+	nextFetchTime: number
+	lastFetchTime: number
+	messageCount15min: number
 }
 
-export function TimelineFooter({ memories }: Props) {
+export function TimelineFooter({
+	messageCount,
+	startTime,
+	nextFetchTime,
+	lastFetchTime,
+	messageCount15min,
+}: Props) {
 	return (
 		<Wrapper>
-			{memories.map((memory, i) => (
-				<MemoryLine
-					key={i}
-					style={{
-						left: `${memory.x * 100}%`,
-						height: `${memory.h * 100}%`,
-					}}
-				>
-					{memory.text}
-				</MemoryLine>
-			))}
+			<LeftFoot>
+				<Typography>レス数 {messageCount}</Typography>
+				<Typography>スレ開始時刻 {timeFormat(startTime)}</Typography>
+			</LeftFoot>
+			<RightFoot>
+				<Typography>最終取得 {timeFormat(lastFetchTime)}</Typography>
+				<Typography>15分以内レス数 {messageCount15min}</Typography>
+				<Typography>次回取得 {timeFormat(nextFetchTime)}</Typography>
+			</RightFoot>
 		</Wrapper>
 	)
 }

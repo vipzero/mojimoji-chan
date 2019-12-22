@@ -55,22 +55,28 @@ function Home() {
 	useEffect(() => {
 		console.log('effect')
 		ipcRenderer.removeAllListeners('posts')
-		ipcRenderer.on('posts', (event, posts: Post[], nth: number) => {
-			const postTimes = posts.map(p => p.timestamp)
-			const fetchTime = Date.now()
+		ipcRenderer.on(
+			'posts',
+			(event, posts: Post[], nth: number, nextCallMs: number) => {
+				const postTimes = posts.map(p => p.timestamp)
+				const fetchTime = Date.now()
+				const nextFetchTime = fetchTime + nextCallMs
 
-			setPosts(s => s.concat(posts))
-			setTimeline(s => ({
-				postTimes: (s === null ? [] : s.postTimes).concat(postTimes),
-				fetchTimes: (s === null ? [] : s.fetchTimes).concat([fetchTime]),
-				nextFetchTime: 0,
-			}))
-			if (nth === 0) {
-				// 初期値は最後の2レスだけ読み取る
-				posts.splice(0, posts.length - 2)
+				setPosts(s => s.concat(posts))
+				setTimeline(s => ({
+					postTimes: (s === null ? [] : s.postTimes).concat(postTimes),
+					fetchTimes: (s === null ? [] : s.fetchTimes).concat([fetchTime]),
+					nextFetchTime,
+				}))
+				if (nth === 0) {
+					// 初期値は最後の2レスだけ読み取る
+					posts.splice(0, posts.length - 2)
+				}
+				posts
+					.map(p => speakPatch(p.message))
+					.forEach(m => speak(m, speechConfig))
 			}
-			posts.map(p => speakPatch(p.message)).forEach(m => speak(m, speechConfig))
-		})
+		)
 		return () => {
 			console.log('unmount')
 			ipcRenderer.removeAllListeners('posts')

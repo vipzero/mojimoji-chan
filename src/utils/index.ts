@@ -1,5 +1,9 @@
 import _ from 'lodash'
+import dayjs from 'dayjs'
 import { SpeechConfig } from '../types'
+import 'dayjs/locale/ja'
+
+dayjs.locale('ja')
 
 export function speak(text: string, config: SpeechConfig) {
 	const uttr = new SpeechSynthesisUtterance(text)
@@ -109,3 +113,6 @@ export const getSeparatorTimes = (beginTime: number, endTime: number) => {
 		).map(withLabel.bind(null, small)),
 	}
 }
+
+export const timeFormatComma = (ts: number) => dayjs(ts).format('HH:mm:ss.SSS')
+export const timeFormat = (ts: number) => dayjs(ts).format('HH:mm:ss')

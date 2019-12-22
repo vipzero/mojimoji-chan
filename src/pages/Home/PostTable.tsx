@@ -7,10 +7,10 @@ import TableCell from '@material-ui/core/TableCell'
 import TableHead from '@material-ui/core/TableHead'
 import TableRow from '@material-ui/core/TableRow'
 import Paper from '@material-ui/core/Paper'
-import dayjs from 'dayjs'
 import useLocalStorage from 'react-use/lib/useLocalStorage'
 import { FormControlLabel, Checkbox, FormGroup } from '@material-ui/core'
 import _ from 'lodash'
+import { timeFormatComma } from '../../utils'
 
 const useStyles = makeStyles((theme: Theme) =>
 	createStyles({
@@ -66,7 +66,7 @@ function PostTable({ posts }: Props) {
 							)}
 							{visible['time'] && (
 								<TableCell size="small">
-									{dayjs(post.timestamp).format('MM/DD HH:mm:ss')}
+									{timeFormatComma(post.timestamp)}
 								</TableCell>
 							)}
 							{visible['name'] && (
