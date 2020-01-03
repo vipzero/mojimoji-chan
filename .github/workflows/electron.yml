@@ -35,7 +35,9 @@ jobs:
         if: matrix.os != 'windows-latest'
         run: |
           mkdir artifacts
-          mv "dist/{*.exe,*.deb,*.AppImage,*.dmg}" artifacts || true
+          mv "dist/*.deb" artifacts || true
+          mv "dist/*.dmg" artifacts || true
+          mv "dist/*.AppImage" artifacts || true
       - name: Cleanup artifacts Win
         if: matrix.os == 'windows-latest'
         run: |
