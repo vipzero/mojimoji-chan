@@ -6,7 +6,7 @@ const main = {
 	target: 'electron-main',
 	mode: 'production',
 	resolve: {
-		extensions: ['.js', '.ts'],
+		extensions: ['.js', '.ts', '.json'],
 	},
 	entry: './src/main.ts',
 	output: {
