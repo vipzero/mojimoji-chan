@@ -53,7 +53,7 @@
 		"awesome-typescript-loader": "^5.2.1",
 		"babel-loader": "^8.0.6",
 		"bufferutil": "^4.0.1",
-		"electron": "^7.1.7",
+		"electron": "^11.5.0",
 		"electron-builder": "^21.2.0",
 		"electron-connect": "^0.6.3",
 		"electron-devtools-installer": "^2.2.4",
